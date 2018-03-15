@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.fready.moneychoo.EventFragment"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/darker_gray"
+        android:text="여러배대지의 이벤트를 확인할수있어요!!"
+        android:layout_margin="10dp"
+        android:textSize="11dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnMalltail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="몰테일"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:background="@android:color/darker_gray"/>
+        <Button
+            android:id="@+id/btnNygirlz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="뉴욕걸즈"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:background="#FFFFFF"/>
+
+        <Button
+            android:id="@+id/btnIporter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="아이포터"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:background="#FFFFFF"/>
+
+        <Button
+            android:id="@+id/btnYogirloo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="요걸루"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:background="#FFFFFF"/>
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF" />
+</LinearLayout>

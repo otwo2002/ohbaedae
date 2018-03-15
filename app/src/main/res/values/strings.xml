@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">오배대</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_framgent_mall_tail">FramgentMallTailActivity</string>
+    <string name="banner_ad_unit_id">ca-app-pub-4987131221778488~1264147614</string>
+    <string name="banner_ad_test_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+</resources>
