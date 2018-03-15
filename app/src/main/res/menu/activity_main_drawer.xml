@@ -6,12 +6,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/calCharge"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="배송비계산" />
+            android:icon="@drawable/ic_if_key"
+            android:title="관세청 개인통관고유부호" />
         <item
             android:id="@+id/fixCharge"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="고정배송비" />
+            android:icon="@drawable/ic_if_money_graph"
+            android:title="환율조회" />
 
     </group>
 
@@ -21,10 +21,7 @@
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+
         </menu>
     </item>
 

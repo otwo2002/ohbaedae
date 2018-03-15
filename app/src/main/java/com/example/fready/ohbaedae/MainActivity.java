@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity
     ResultFragment resultFragment;   //계산결과
     EventFragment eventFragment;     //이벤트
     WeightFragment weightFragment;  //중량별배송비
+    TaxFragment taxFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,13 +31,14 @@ public class MainActivity extends AppCompatActivity
         infoFragment = new InfoFragment();
         eventFragment = new EventFragment();
         weightFragment = new WeightFragment();
+        taxFragment =  new TaxFragment();
         //화면에 프레그먼트 화면 붙혀줌.
         getSupportFragmentManager().beginTransaction().replace(R.id.container, infoFragment).commit();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+        */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -59,7 +62,8 @@ public class MainActivity extends AppCompatActivity
         TabLayout tab = (TabLayout)findViewById(R.id.tab);
         tab.addTab(tab.newTab().setText("배송비계산"),0,true);
         tab.addTab(tab.newTab().setText("고정배송비"),1,false);
-        tab.addTab(tab.newTab().setText("이벤트"),2,false);
+        tab.addTab(tab.newTab().setText("관부과세"),2,false);
+        tab.addTab(tab.newTab().setText("이벤트"),3,false);
 
         //탭클릭시 fragment변경하기 위해서 호출
         tab.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -73,8 +77,11 @@ public class MainActivity extends AppCompatActivity
                 }else if(position==1){
                     selected = weightFragment;
                 }else if (position==2){
+                    selected =  taxFragment ;
+                }else if (position==3){
                     selected = eventFragment;
                 }
+
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, selected).commit();
             }
 
@@ -92,6 +99,8 @@ public class MainActivity extends AppCompatActivity
                 }else if(position==1){
                     selected = weightFragment;
                 }else if (position==2){
+                    selected = taxFragment;
+                }else if (position==3){
                     selected = eventFragment;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, selected).commit();
@@ -133,9 +142,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        //if (id == R.id.action_settings) {
+       //     return true;
+        //}
 
         return super.onOptionsItemSelected(item);
     }
@@ -150,8 +159,6 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.container, infoFragment).commit();
         } else if (id == R.id.fixCharge) {
             getSupportFragmentManager().beginTransaction().replace(R.id.container, weightFragment).commit();
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
