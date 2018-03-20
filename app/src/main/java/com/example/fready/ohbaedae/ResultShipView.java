@@ -19,6 +19,8 @@ public class ResultShipView extends LinearLayout {
     TextView textRealWeight;
     TextView textVolumeWeight;
     TextView textLocalShipCharge;
+    TextView textShippingCenter;
+    TextView textNote;
    // TextView textNote;
 
 
@@ -42,6 +44,8 @@ public class ResultShipView extends LinearLayout {
         //textRealWeight = (TextView)findViewById(R.id.realWeight);
         textVolumeWeight= (TextView)findViewById(R.id.volumeWeight);
         textLocalShipCharge= (TextView)findViewById(R.id.localShipCharge);
+        textNote= (TextView)findViewById(R.id.note);
+        textShippingCenter=(TextView)findViewById(R.id.shippingCenter);
     }
 
     public void setAgent(String agent){
@@ -62,7 +66,6 @@ public class ResultShipView extends LinearLayout {
     }
     public void setLocalShipCharge(String localShipCharge){textLocalShipCharge.setText(localShipCharge);}
 
-
-   // public void setTextNote(String note) { textNote.setText(note);}
-
+    public void setNote(String note) { textNote.setText(note);}
+    public void setShippingCenter(String shippingCenter) { textShippingCenter.setText(shippingCenter);}
 }

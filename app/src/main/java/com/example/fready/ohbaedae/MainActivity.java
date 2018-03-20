@@ -1,10 +1,13 @@
 package com.example.fready.ohbaedae;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,22 +24,26 @@ public class MainActivity extends AppCompatActivity
     InfoFragment infoFragment;      //제품 입력정보
     ResultFragment resultFragment;   //계산결과
     EventFragment eventFragment;     //이벤트
-    WeightFragment weightFragment;  //중량별배송비
+    FeeFragment feeFragment;  //수수료비교
     TaxFragment taxFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar()!=null ){
+            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            getSupportActionBar().setCustomView(R.layout.action_bar_main);
 
+        }
         infoFragment = new InfoFragment();
         eventFragment = new EventFragment();
-        weightFragment = new WeightFragment();
+        feeFragment = new FeeFragment();
         taxFragment =  new TaxFragment();
         //화면에 프레그먼트 화면 붙혀줌.
         getSupportFragmentManager().beginTransaction().replace(R.id.container, infoFragment).commit();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +68,7 @@ public class MainActivity extends AppCompatActivity
         //tab에 메뉴정보 입력
         TabLayout tab = (TabLayout)findViewById(R.id.tab);
         tab.addTab(tab.newTab().setText("배송비계산"),0,true);
-        tab.addTab(tab.newTab().setText("고정배송비"),1,false);
+        tab.addTab(tab.newTab().setText("수수료비교"),1,false);
         tab.addTab(tab.newTab().setText("관부과세"),2,false);
         tab.addTab(tab.newTab().setText("이벤트"),3,false);
 
@@ -75,7 +82,7 @@ public class MainActivity extends AppCompatActivity
                 if ( position==0 ) {
                     selected = infoFragment;
                 }else if(position==1){
-                    selected = weightFragment;
+                    selected = feeFragment;
                 }else if (position==2){
                     selected =  taxFragment ;
                 }else if (position==3){
@@ -97,7 +104,7 @@ public class MainActivity extends AppCompatActivity
                 if ( position==0 ) {
                     selected = infoFragment;
                 }else if(position==1){
-                    selected = weightFragment;
+                    selected = feeFragment;
                 }else if (position==2){
                     selected = taxFragment;
                 }else if (position==3){
@@ -120,7 +127,7 @@ public class MainActivity extends AppCompatActivity
                 finish();
                 return;
             }
-            Toast.makeText(this, "한번더 누르면 어플리케이션이 종료됩니다. ", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "한번더 누르면 어플리케이션이 종료됩니다. ", Toast.LENGTH_SHORT).show();
             lastTimeBackPressed = System.currentTimeMillis();
         }
 
@@ -155,10 +162,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.calCharge) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, infoFragment).commit();
-        } else if (id == R.id.fixCharge) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, weightFragment).commit();
+        if (id == R.id.keyFind) {
+            Intent intent = new Intent(this, KeyActivity.class);
+            this.startActivity(intent);
+        } else if (id == R.id.excharge) {
+            Intent intent = new Intent(this, ExchangeActivity.class);
+            this.startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -170,7 +179,7 @@ public class MainActivity extends AppCompatActivity
     public void callResult(GoodInfoVO goodInfoVO){
 
         Bundle bundle = new Bundle();
-        bundle.putString("shippingCenter", goodInfoVO.getShippingCenter());
+        bundle.putString("national", goodInfoVO.getNational());
         bundle.putString("goodPrice", goodInfoVO.getGoodPrice());
         bundle.putString("tax", goodInfoVO.getTax());
         bundle.putString("localShpping", goodInfoVO.getLocalShipCharge());
@@ -187,4 +196,8 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction().replace(R.id.calResult, resultFragment).commit();
 
     }
+
+    //getSupportActionBar().hide();
+
+
 }

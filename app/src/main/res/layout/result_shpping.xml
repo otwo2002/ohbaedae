@@ -5,102 +5,119 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/agent"
-        android:layout_width="30dp"
-        android:layout_height="60dp"
-        android:layout_weight="1"
-        android:text="배송대행지"/>
-    <LinearLayout
-        android:layout_width="0dp"
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TableRow>
+            <TextView
+                android:id="@+id/agent"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:text="배송대행지"
+                android:layout_gravity="center_horizontal"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/shippingCenter"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:text=""
+                android:textSize="10dp"
+                android:layout_gravity="center_horizontal"/>
+        </TableRow>
+    </TableLayout>
+
+
+    <TableLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
+        android:shrinkColumns="*"
+        android:stretchColumns="1,3"
+        android:layout_margin="2dp"
+        android:padding="4dp"
+        >
 
-        <TextView
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:text="부피무게:"
-            android:textSize="10dp"
-            android:gravity="right"/>
-        <TextView
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:text="적용무게:"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="10dp"
-            android:gravity="right"/>
-    </LinearLayout>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="부피무게:"
+                android:textSize="10dp" />
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
+            <TextView
+                android:id="@+id/volumeWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=""
+                android:textSize="10dp" />
 
-        <TextView
-            android:id="@+id/volumeWeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="10dp"
-            android:gravity="left"/>
-        <TextView
-            android:id="@+id/applyWeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="10dp"
-            android:gravity="left"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.5"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="국제배송비:"
+                android:textSize="10dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="국제배송비:"
-            android:textSize="10dp"
-            android:gravity="right"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="국내배송비:"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="10dp"
-            android:gravity="right"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_weight="1"
-        android:gravity="left"
-        android:orientation="vertical">
+            <TextView
+                android:id="@+id/shppingCharge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=""
+                android:textColor="@android:color/holo_orange_dark"
+                android:textSize="10dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/shppingCharge"
-            android:textColor="@android:color/holo_orange_dark"
-            android:textSize="10dp"
-            android:gravity="left"/>
+        </TableRow>
 
-        <TextView
-            android:id="@+id/localShipCharge"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text=""
-            android:textColor="@android:color/holo_orange_dark"
-            android:textSize="10dp"
-            android:gravity="left"/>
-    </LinearLayout>
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="적용무게:"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/applyWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text=""
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="국내배송비:"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/localShipCharge"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="left"
+                android:text=""
+                android:textColor="@android:color/holo_orange_dark"
+                android:textSize="10dp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/note"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_span="4"
+                android:gravity="left"
+                android:text="note"
+                android:textSize="10dp" />
+        </TableRow>
+    </TableLayout>
 </LinearLayout>

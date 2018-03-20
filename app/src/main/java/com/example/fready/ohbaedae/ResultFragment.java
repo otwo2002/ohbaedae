@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,47 +34,52 @@ public class ResultFragment extends Fragment {
     ResultAdapter adapter;
     ViewGroup rootView ;
     ListView listView;
-    TextView resultPoundView;
-    TextView shippingCenterName;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         System.out.print("ResultFragment onCreateView %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         rootView = (ViewGroup) inflater.inflate(R.layout.result_frag, container, false);
         listView=(ListView)rootView.findViewById(R.id.listView);
-        resultPoundView=(TextView)rootView.findViewById(R.id.result);
-        shippingCenterName=(TextView)rootView.findViewById(R.id.shippingCenterName);
+        TextView resultPoundView=(TextView)rootView.findViewById(R.id.result);
+
+        TextView nationalView = (TextView)rootView.findViewById(R.id.national);
+        ImageView flagView = (ImageView)rootView.findViewById(R.id.flag);
         adapter = new ResultAdapter();
         //앞에서 화면에서 입력한 정보를 받아옮.
 
         //배송비 계산 함수 호출
         ArrayList<CompShppingAgentVO> voList = new ArrayList<CompShppingAgentVO>();
-        String shppingCenter = getArguments().getString("shippingCenter"); //물류센터
+        String national = getArguments().getString("national"); //구입국가
         //{"CA-켈리포니아","DW-델라웨이","NJ-뉴저지", "OR-오레곤"}
         //몰테일 호출 - 켈리포니아, 델라웨어, 뉴저지
-        if(shppingCenter!=null && (shppingCenter.equals("0") || shppingCenter.equals("1")||shppingCenter.equals("2"))){
+       // if(shppingCenter!=null && (shppingCenter.equals("0") || shppingCenter.equals("1")||shppingCenter.equals("2"))){
 
-            voList.add( calDeliveryPrice("malltail"));
-        }
+            voList.add( calDeliveryPrice("malltail", "0"));
+            voList.add( calDeliveryPrice("malltail", "1"));
+            voList.add( calDeliveryPrice("malltail", "2"));
+        //}
 
         //뉴욕걸즈 호출 - 뉴저지 , 오레곤, 델라웨어
-        if(shppingCenter!=null && (shppingCenter.equals("1") || shppingCenter.equals("2")||shppingCenter.equals("3"))){
-
-            voList.add( calDeliveryPrice("nygirlz"));
-        }
+        //if(shppingCenter!=null && (shppingCenter.equals("1") || shppingCenter.equals("2")||shppingCenter.equals("3"))){
+            voList.add( calDeliveryPrice("nygirlz", "1"));
+            voList.add( calDeliveryPrice("nygirlz", "2"));
+            voList.add( calDeliveryPrice("nygirlz", "3"));
+        //}
 
         //아이포터 호출 - 켈리포니아, 뉴저지, 오레곤
 
-        if(shppingCenter!=null && (shppingCenter.equals("0") || shppingCenter.equals("2")||shppingCenter.equals("3"))){
-
-            voList.add( calDeliveryPrice("iporter"));
-        }
+        //if(shppingCenter!=null && (shppingCenter.equals("0") || shppingCenter.equals("2")||shppingCenter.equals("3"))){
+            voList.add( calDeliveryPrice("iporter", "0"));
+            voList.add( calDeliveryPrice("iporter", "2"));
+            voList.add( calDeliveryPrice("iporter", "3"));
+        //}
 
         //요걸루 호출 -켈리포니아
-        if(shppingCenter!=null && shppingCenter.equals("0")){
+        //if(shppingCenter!=null && shppingCenter.equals("0")){
 
-            voList.add( calDeliveryPrice("yogirloo"));
-        }
+            voList.add( calDeliveryPrice("yogirloo","0"));
+       // }
 
 
 
@@ -104,17 +110,25 @@ public class ResultFragment extends Fragment {
                 +"lbs " );
 
         //{"CA-켈리포니아","DW-델라웨이","NJ-뉴저지", "OR-오레곤"}
-        if(shppingCenter!=null && shppingCenter.equals("0")) {
-            shippingCenterName.setText("CA-켈리포니아");
-        }else if(shppingCenter!=null && shppingCenter.equals("1")) {
-            shippingCenterName.setText("DW-델라웨어");
-        }else if(shppingCenter!=null && shppingCenter.equals("2")) {
-            shippingCenterName.setText("NJ-뉴저지");
-        }else if(shppingCenter!=null && shppingCenter.equals("3")) {
-            shippingCenterName.setText("OR-오레곤");
+        if(national!=null && national.equals("0")) {
+            nationalView.setText("미국");
+            flagView.setImageResource(R.drawable.if_usa_1);
+        }else if(national!=null && national.equals("1")) {
+            nationalView.setText("중국");
+            flagView.setImageResource(R.drawable.if_china_1);
+        }else if(national!=null && national.equals("2")) {
+            nationalView.setText("일본");
+            flagView.setImageResource(R.drawable.if_japan_1);
+        }else if(national!=null && national.equals("3")) {
+            nationalView.setText("독일");
+            flagView.setImageResource(R.drawable.if_germany_1);
+        }else if(national!=null && national.equals("4")) {
+            nationalView.setText("호주");
+            flagView.setImageResource(R.drawable.if_australia_1);
         }
-        System.out.print(shppingCenter);
-        System.out.print("shppingCenter===============?"+shppingCenter);
+
+        System.out.print(national);
+        System.out.print("shppingCenter===============?"+national);
         return rootView;
     }
     //데이터를 관리하는 어뎁터
@@ -155,12 +169,18 @@ public class ResultFragment extends Fragment {
             //view.setRealWeight(item.getRealWeight()+" lbs");
             view.setApplyWeight(item.getApplyWeight()+" lbs");
             if(item.getVolumeWeight()==null || item.getVolumeWeight().trim().equals("") || item.getVolumeWeight().equals("0")){
-                view.setVolumeWeight("-");
+                view.setVolumeWeight("   -");
             }else{
                 view.setVolumeWeight(item.getVolumeWeight()+" lbs");
             }
 
             view.setLocalShipCharge(item.getLocalShipChage()); //한국국내배송비
+            if(item.getNote()!=null && !item.getNote().trim().equals("")){
+                view.setNote("*."+item.getNote());
+            }else{
+                view.setNote("");
+            }
+            view.setShippingCenter(item.getShippingCenterName());
             return view;
         }
         //데이터 넣기
@@ -263,10 +283,10 @@ public class ResultFragment extends Fragment {
         return mp;
     }
     //공통 입력받은 값으로 배송비 계산
-    private CompShppingAgentVO calDeliveryPrice(String shippingGubun){
+    private CompShppingAgentVO calDeliveryPrice(String shippingGubun, String shppingCenter){
         CompShppingAgentVO vo = new CompShppingAgentVO();
         try {
-            String shppingCenter = getArguments().getString("shippingCenter"); //물류센터
+            //String shppingCenter = getArguments().getString("shippingCenter"); //물류센터
             Map<String, String> infoMap = getMapWeightPrice(shippingGubun, shppingCenter);
 
             //부피무게 적용여부 확인
@@ -405,6 +425,7 @@ public class ResultFragment extends Fragment {
                 vo.setAgent("몰테일");
                 vo.setGubun("항공");
                 vo.setLocalShipChage("-");
+
             }else if(shippingGubun.equals("nygirlz")){
                 vo.setAgent("뉴욕걸즈");
                 vo.setGubun("항공");
@@ -418,12 +439,21 @@ public class ResultFragment extends Fragment {
                 vo.setGubun("해상");
                 vo.setLocalShipChage("2차결제");
             }
-
+            //{"CA-켈리포니아","DW-델라웨이","NJ-뉴저지", "OR-오레곤"}
+            if(shppingCenter!=null && shppingCenter.equals("0")) {
+                vo.setShippingCenterName("<CA-켈리포니아>");
+            }else if(shppingCenter!=null && shppingCenter.equals("1")) {
+                vo.setShippingCenterName("<DW-델라웨이>");
+            }else if(shppingCenter!=null && shppingCenter.equals("2")) {
+                vo.setShippingCenterName("<NJ-뉴저지>");
+            }else if(shppingCenter!=null && shppingCenter.equals("3")) {
+                vo.setShippingCenterName("<OR-오레곤>");
+            }
             vo.setRealWeight(goodWeight);
             vo.setVolumeWeight(volumeWeight.toString());
             vo.setApplyWeight(finalWeight.toString());
             vo.setShppingCharge(shipPrice.toString());
-
+            vo.setNote(note);
         }catch(Exception e){
             e.printStackTrace();
         }

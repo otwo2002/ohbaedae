@@ -5,7 +5,7 @@ package com.example.fready.ohbaedae;
  */
 
 public class GoodInfoVO {
-    String shippingCenter;  //물류센터
+    String national;  //구입국가
     String goodPrice ;//상품가격
     String tax ;//세금
     String localShipCharge ;//현지배송비
@@ -14,8 +14,8 @@ public class GoodInfoVO {
     String  goodVertical ;//세로
     String  goodWeight ; //무게
 
-    public GoodInfoVO(String shippingCenter, String goodPrice, String tax, String localShipCharge, String goodWidth, String goodHeight, String goodVertical, String goodWeight) {
-        this.shippingCenter = shippingCenter;
+    public GoodInfoVO(String national, String goodPrice, String tax, String localShipCharge, String goodWidth, String goodHeight, String goodVertical, String goodWeight) {
+        this.national = national;
         this.goodPrice = goodPrice;
         this.tax = tax;
         this.localShipCharge = localShipCharge;
@@ -82,11 +82,11 @@ public class GoodInfoVO {
         this.goodWeight = goodWeight;
     }
 
-    public String getShippingCenter() {
-        return shippingCenter;
+    public String getNational() {
+        return national;
     }
 
-    public void setShippingCenter(String shippingCenter) {
-        this.shippingCenter = shippingCenter;
+    public void setNational(String national) {
+        this.national = national;
     }
 }

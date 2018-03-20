@@ -5,11 +5,11 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/calCharge"
+            android:id="@+id/keyFind"
             android:icon="@drawable/ic_if_key"
             android:title="관세청 개인통관고유부호" />
         <item
-            android:id="@+id/fixCharge"
+            android:id="@+id/excharge"
             android:icon="@drawable/ic_if_money_graph"
             android:title="환율조회" />
 

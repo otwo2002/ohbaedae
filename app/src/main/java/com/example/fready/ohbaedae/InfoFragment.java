@@ -24,7 +24,6 @@ import com.google.android.gms.ads.MobileAds;
  */
 
 public class InfoFragment extends Fragment{
-    String[] items ={"CA-켈리포니아","DW-델라웨이","NJ-뉴저지", "OR-오레곤"};  //물류센터 목록
     MainActivity mainActivity;
     GoodInfoVO goodInfoVO;
     ViewGroup rootView ;
@@ -32,7 +31,8 @@ public class InfoFragment extends Fragment{
     String goodVertical;
     String goodWidth;
     String goodHeight;
-    Spinner spinner ;
+    Spinner nationalSpinner ;
+    Spinner centerSpinner ;
     private AdView mAdView;
     @Override
     public void onAttach(Context context) {
@@ -53,21 +53,24 @@ public class InfoFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
         MobileAds.initialize(getContext(), R.string.banner_ad_test_unit_id+"");
         //Toast.makeText(rootView.getContext(), "onActivityCreated", Toast.LENGTH_LONG).show();
-
-        spinner = (Spinner)rootView.findViewById(R.id.shippingCenter);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        nationalSpinner = (Spinner)rootView.findViewById(R.id.national);
+        /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 rootView.getContext(),android.R.layout.simple_spinner_item, items
-        );
-        spinner.setAdapter(adapter);
-
+        );*/
+        ArrayAdapter nationalAdapter= ArrayAdapter.createFromResource(getContext(), R.array.national, android.R.layout.simple_dropdown_item_1line);
+        nationalSpinner.setAdapter(nationalAdapter);
+        //물류센터
+        /*centerSpinner = (Spinner)rootView.findViewById(R.id.shippingCenter);
+        ArrayAdapter centerAdapter= ArrayAdapter.createFromResource(getContext(), R.array.usa_center, android.R.layout.simple_dropdown_item_1line);
+        centerSpinner.setAdapter(centerAdapter);
+        */
         //계산하기 버튼클릭시 배송비 계산하기
         Button calButton = (Button)rootView.findViewById(R.id.button);
         calButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goodWeight= ((TextView) (rootView.findViewById(R.id.goodWeight))).getText().toString();
-                System.out.println("(((((((((((((((((((((((((((("+goodWeight);
+                //System.out.println("(((((((((((((((((((((((((((("+goodWeight);
                 goodVertical= ((TextView) (rootView.findViewById(R.id.goodVertical))).getText().toString();
                 goodWidth = ((TextView) (rootView.findViewById(R.id.goodWidth))).getText().toString();
                 goodHeight = ((TextView) (rootView.findViewById(R.id.goodHeight))).getText().toString();
@@ -137,10 +140,14 @@ public class InfoFragment extends Fragment{
 
     private void callResult(){
         goodInfoVO = new GoodInfoVO(
-                spinner.getSelectedItemPosition()+"",
-                ((TextView) (rootView.findViewById(R.id.goodPrice))).getText().toString(),
-                ((TextView) (rootView.findViewById(R.id.tax))).getText().toString(),
-                ((TextView) (rootView.findViewById(R.id.localShipCharge))).getText().toString(),
+                nationalSpinner.getSelectedItemPosition()+"",
+//금액은 화면에서 입력 안받는 걸로 수정
+//                ((TextView) (rootView.findViewById(R.id.goodPrice))).getText().toString(),
+//                ((TextView) (rootView.findViewById(R.id.tax))).getText().toString(),
+//                ((TextView) (rootView.findViewById(R.id.localShipCharge))).getText().toString(),
+                "0",
+                "0",
+                "0",
 
                 goodWidth,
                 goodHeight,

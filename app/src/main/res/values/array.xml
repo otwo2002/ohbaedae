@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="national">
+        <item>미국</item>
+        <item>중국</item>
+        <item>일본</item>
+        <item>독일</item>
+        <item>호주</item>
+    </string-array>
+    <string-array name="usa_center">
+        <item>CA-켈리포니아</item>
+        <item>DW-델라웨이</item>
+        <item>NJ-뉴저지</item>
+        <item>OR-오레곤</item>
+    </string-array>
+</resources>

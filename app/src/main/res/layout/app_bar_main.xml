@@ -9,27 +9,19 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#267CB5"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-                <TextView
-                    android:id="@+id/menu_title"
-                    android:text="@string/app_name"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="20dp"/>
+            android:theme="@style/ThemeOverlay.AppCompat.Dark">
+            <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" -->
 
-            </RelativeLayout>
+
+            <include
+                layout="@layout/action_bar_main" />
         </android.support.v7.widget.Toolbar>
         <android.support.design.widget.TabLayout
             android:id="@+id/tab"
