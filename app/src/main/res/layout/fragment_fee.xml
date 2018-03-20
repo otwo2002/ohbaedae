@@ -12,338 +12,330 @@
         android:gravity="center_horizontal"
         android:textColor="@android:color/darker_gray"
         android:text="여러배대지의 수수료정보를 비교할수있어요."
-        android:layout_margin="10dp"
+        android:layout_margin="3dp"
         android:textSize="11dp"/>
-
-    <TableLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="#FFFFFF"
-        android:shrinkColumns="*"
-        android:stretchColumns="*">
-
-        <TableRow
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/darker_gray"
+        android:text="★.합배송이란? 하나의 주문건이 여러개의 박스(트래킹)로 나뉘어 배송된것을 한박스로 재포장하는것"
+        android:textSize="11dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/darker_gray"
+        android:text="★.묶음배송이란? 각기다른 해외쇼핑몰에서 주문한 2건이상의 배송신청건을 한박스로 재포장하는 것"
+        android:textSize="11dp"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@android:color/white"
-            android:padding="1dp">
+            android:layout_height="match_parent">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:stretchColumns="1,2,3,4,5"
+                android:shrinkColumns="1,2,5"
+                android:padding="3dp"
+                android:layout_margin="8dp">
+                <TableRow
+                    android:background="@android:color/white"
+                    android:padding="2dp">
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_red_dark"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="구분"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:background="@android:color/holo_orange_light"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="합배송"
+                        android:textSize="11dp"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:background="@android:color/holo_green_light"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="묶음배송"
+                        android:textSize="11dp"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:background="@android:color/holo_blue_bright"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="검수비용"
+                        android:textSize="11dp"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:background="@android:color/holo_red_light"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="일반통관"
+                        android:textColor="@android:color/white"
+                        android:textSize="11dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:background="@android:color/holo_purple"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="반송료"
+                        android:textSize="11dp"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold"/>
+                </TableRow>
+                <TableRow
+                    android:background="@android:color/white"
+                    android:padding="2dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:gravity="center_horizontal"
-                android:background="@android:color/holo_red_dark"
-                android:textColor="@android:color/white"
-                android:text="구분"
-                android:textSize="10dp"
-                />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_red_dark"
+                        android:gravity="center_horizontal"
+                        android:text="뉴욕걸즈"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:background="@android:color/holo_orange_light"
-                android:gravity="center_horizontal"
-                android:text="합배송"
-                android:textSize="11dp"
-                android:textColor="@android:color/white"
-                />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_orange_light"
+                        android:gravity="left"
+                        android:text="오더번호기준 10건까지 무료, 이후 오더번호 개당 1천원 "
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:background="@android:color/holo_green_light"
-                android:gravity="center_horizontal"
-                android:text="묶음배송"
-                android:textSize="11dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_green_light"
+                        android:gravity="left"
+                        android:text="-"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:background="@android:color/holo_blue_bright"
-                android:gravity="center_horizontal"
-                android:text="검수비용"
-                android:textSize="11dp"
-                android:textColor="@android:color/white"
-                />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_blue_bright"
+                        android:gravity="left"
+                        android:text="-"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:background="@android:color/holo_red_light"
-                android:gravity="center_horizontal"
-                android:text="일반통관"
-                android:textSize="11dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_red_light"
+                        android:gravity="left"
+                        android:text="1천원"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:background="@android:color/holo_purple"
-                android:gravity="center_horizontal"
-                android:text="반송료"
-                android:textSize="11dp"
-                android:textColor="@android:color/white"/>
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:padding="1dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_purple"
+                        android:gravity="left"
+                        android:text="등급에 따라 1,000원~6,000원"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
+                </TableRow>
+                <TableRow
+                    android:background="@android:color/white"
+                    android:padding="2dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_red_dark"
-                android:gravity="center_horizontal"
-                android:text="뉴욕걸즈"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_red_dark"
+                        android:gravity="center_horizontal"
+                        android:text="몰테일"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_orange_light"
-                android:gravity="left"
-                android:text="오더번호기준
- 10건까지 무료
-, 이후 오더번호
- 개당 1천원 "
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_orange_light"
+                        android:gravity="left"
+                        android:text="무료(이베이제외)"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_green_light"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_green_light"
+                        android:gravity="left"
+                        android:text="3$(3건까지 가능)"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-                android:gravity="left"
-                android:text="-"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_blue_bright"
+                        android:gravity="left"
+                        android:text="기본검수무료"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_blue_bright"
-                android:gravity="left"
-                android:text="-"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_red_light"
+                        android:gravity="left"
+                        android:text="무료"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_red_light"
-                android:gravity="left"
-                android:text="1천원"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_purple"
+                        android:gravity="left"
+                        android:text="--"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
+                </TableRow>
+                <TableRow
+                    android:background="@android:color/white"
+                    android:padding="2dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_purple"
-                android:gravity="left"
-                android:text="등급에 따라
-1,000원~6,000원"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:padding="1dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_red_dark"
+                        android:gravity="center_horizontal"
+                        android:text="아이포터"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_red_dark"
-                android:gravity="center_horizontal"
-                android:text="몰테일"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_orange_light"
+                        android:gravity="left"
+                        android:text="무료"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_orange_light"
-                android:gravity="left"
-                android:text="무료
-(이베이제외)"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_green_light"
+                        android:gravity="left"
+                        android:text="$2 (3건 초과시 1건 마다 $1 추가 최대 5건까지 가능)"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_green_light"
-                android:gravity="left"
-                android:text="3$(3건까지 가능)"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_blue_bright"
+                        android:gravity="left"
+                        android:text="기본검수무료"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_blue_bright"
-                android:gravity="left"
-                android:text="기본검수무료"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_red_light"
+                        android:gravity="left"
+                        android:text="무료"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_red_light"
-                android:gravity="left"
-                android:text="무료"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_purple"
+                        android:gravity="left"
+                        android:text="$5 반송수수료+ 현지반송비용"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
+                </TableRow>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_purple"
-                android:gravity="left"
-                android:text="--"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:padding="1dp">
+                <TableRow
+                    android:background="@android:color/white"
+                    android:padding="2dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_red_dark"
-                android:gravity="center_horizontal"
-                android:text="아이포터"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_red_dark"
+                        android:gravity="center_horizontal"
+                        android:text="요걸루"
+                        android:textColor="@android:color/white"
+                        android:textSize="10dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_orange_light"
-                android:gravity="left"
-                android:text="무료"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_orange_light"
+                        android:gravity="left"
+                        android:text="한 주문서내 TRACKING NO.3개까지 무료이며,이후 개당$2"
+                        android:textColor="@android:color/white"
+                        android:textSize="10dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_green_light"
-                android:gravity="left"
-                android:text="$2
-3건 초과시
-1건 마다 $1 추가
-최대 5건까지 가능"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_green_light"
+                        android:gravity="left"
+                        android:text=""
+                        android:textColor="@android:color/white"
+                        android:textSize="10dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_blue_bright"
-                android:gravity="left"
-                android:text="기본검수무료"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_blue_bright"
+                        android:gravity="left"
+                        android:text="기본검수무료(정밀검수를진행하지 않음)"
+                        android:textColor="@android:color/white"
+                        android:textSize="10dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_red_light"
-                android:gravity="left"
-                android:text="무료"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_red_light"
+                        android:gravity="left"
+                        android:text="$5"
+                        android:textColor="@android:color/white"
+                        android:textSize="10dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_purple"
-                android:gravity="left"
-                android:text="$5 반송수수료
-+ 현지 반송 비용"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:padding="1dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_red_dark"
-                android:gravity="center_horizontal"
-                android:text="요걸루"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_orange_light"
-                android:gravity="left"
-                android:text="한 주문서내
-TRACKING NO.
-3개까지 무료이며,
-이후 개당 $2"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_green_light"
-                android:gravity="left"
-                android:text=""
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_blue_bright"
-                android:gravity="left"
-                android:text="기본검수무료
-(정밀검수를
- 진행하지 않음)
-"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_red_light"
-                android:gravity="left"
-                android:text="$5"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@android:color/holo_purple"
-                android:gravity="left"
-                android:text="$15
-(파손이나 물품 오염 등에
- 의한 반품 수수료는 무료)"
-                android:textSize="10dp"
-                android:textColor="@android:color/white"/>
-        </TableRow>
-    </TableLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_purple"
+                        android:gravity="left"
+                        android:text="$15(파손이나 물품 오염등에 의한 반품수수료는 무료)"
+                        android:textColor="@android:color/white"
+                        android:textSize="10dp" />
+                </TableRow>
+            </TableLayout>
+        </FrameLayout>
+    </ScrollView>
 </LinearLayout>
