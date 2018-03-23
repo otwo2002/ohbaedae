@@ -51,38 +51,52 @@ public class ResultFragment extends Fragment {
         //배송비 계산 함수 호출
         ArrayList<CompShppingAgentVO> voList = new ArrayList<CompShppingAgentVO>();
         String national = getArguments().getString("national"); //구입국가
-        //{"CA-켈리포니아","DW-델라웨이","NJ-뉴저지", "OR-오레곤"}
-        //몰테일 호출 - 켈리포니아, 델라웨어, 뉴저지
-       // if(shppingCenter!=null && (shppingCenter.equals("0") || shppingCenter.equals("1")||shppingCenter.equals("2"))){
+        if(national!=null && national.equals("0")) {
+            //{"CA-켈리포니아","DW-델라웨이","NJ-뉴저지", "OR-오레곤"}
+            //몰테일 호출 - 켈리포니아, 델라웨어, 뉴저지
+            // if(shppingCenter!=null && (shppingCenter.equals("0") || shppingCenter.equals("1")||shppingCenter.equals("2"))){
 
-            voList.add( calDeliveryPrice("malltail", "0"));
-            voList.add( calDeliveryPrice("malltail", "1"));
-            voList.add( calDeliveryPrice("malltail", "2"));
-        //}
+            voList.add(calDeliveryPrice("malltail", "0", "F"));
+            voList.add(calDeliveryPrice("malltail", "1","F"));
+            voList.add(calDeliveryPrice("malltail", "2","F"));
+            //}
 
-        //뉴욕걸즈 호출 - 뉴저지 , 오레곤, 델라웨어
-        //if(shppingCenter!=null && (shppingCenter.equals("1") || shppingCenter.equals("2")||shppingCenter.equals("3"))){
-            voList.add( calDeliveryPrice("nygirlz", "1"));
-            voList.add( calDeliveryPrice("nygirlz", "2"));
-            voList.add( calDeliveryPrice("nygirlz", "3"));
-        //}
+            //뉴욕걸즈 호출 - 뉴저지 , 오레곤, 델라웨어
+            //if(shppingCenter!=null && (shppingCenter.equals("1") || shppingCenter.equals("2")||shppingCenter.equals("3"))){
+            voList.add(calDeliveryPrice("nygirlz", "1","F"));
+            voList.add(calDeliveryPrice("nygirlz", "2","F"));
+            voList.add(calDeliveryPrice("nygirlz", "3","F"));
+            //}
 
-        //아이포터 호출 - 켈리포니아, 뉴저지, 오레곤
+            //아이포터 호출 - 켈리포니아, 뉴저지, 오레곤
 
-        //if(shppingCenter!=null && (shppingCenter.equals("0") || shppingCenter.equals("2")||shppingCenter.equals("3"))){
-            voList.add( calDeliveryPrice("iporter", "0"));
-            voList.add( calDeliveryPrice("iporter", "2"));
-            voList.add( calDeliveryPrice("iporter", "3"));
-        //}
+            //if(shppingCenter!=null && (shppingCenter.equals("0") || shppingCenter.equals("2")||shppingCenter.equals("3"))){
+            voList.add(calDeliveryPrice("iporter", "0","F"));
+            voList.add(calDeliveryPrice("iporter", "2","F"));
+            voList.add(calDeliveryPrice("iporter", "3","F"));
+            //}
 
-        //요걸루 호출 -켈리포니아
-        //if(shppingCenter!=null && shppingCenter.equals("0")){
+            //요걸루 호출 -켈리포니아
+            //if(shppingCenter!=null && shppingCenter.equals("0")){
 
-            voList.add( calDeliveryPrice("yogirloo","0"));
-       // }
-
-
-
+            voList.add(calDeliveryPrice("yogirloo", "0","S"));
+            // }
+        }else if(national!=null && national.equals("1")) {//중국
+            voList.add(calDeliveryPrice("malltail", "C", "F"));
+            voList.add(calDeliveryPrice("malltail", "C", "S"));
+            voList.add(calDeliveryPrice("iporter", "I", "F"));
+            voList.add(calDeliveryPrice("iporter", "I", "S"));
+        }else if(national!=null && national.equals("2")) {//일본
+            voList.add(calDeliveryPrice("malltail", "C", "F"));
+            voList.add(calDeliveryPrice("malltail", "C", "S"));
+            voList.add(calDeliveryPrice("iporter", "I", "F"));
+            voList.add(calDeliveryPrice("iporter", "I", "S"));
+        }else if(national!=null && national.equals("3")) {//독일
+            voList.add(calDeliveryPrice("malltail", "G", "F"));
+            voList.add(calDeliveryPrice("iporter", "G", "F"));
+        }else if(national!=null && national.equals("4")) {//영국
+            voList.add(calDeliveryPrice("iporter", "E", "F"));
+        }
         //배송비가 가장 적은 것부터서 순서대로 정렬한다.
         CompShppingAgentVO tempVo ;
         BigDecimal ship1;
@@ -106,10 +120,8 @@ public class ResultFragment extends Fragment {
         //리스트 화면에 붙혀줌.
         calShippingPrice(voList);
         //실무게는 모두 같지만 부피무게랑 적용무게는 업체별로 달라질수있음.
-        resultPoundView.setText("실무게:"+voList.get(0).getRealWeight()
-                +"lbs " );
+        resultPoundView.setText("실무게:"+voList.get(0).getRealWeight());
 
-        //{"CA-켈리포니아","DW-델라웨이","NJ-뉴저지", "OR-오레곤"}
         if(national!=null && national.equals("0")) {
             nationalView.setText("미국");
             flagView.setImageResource(R.drawable.if_usa_1);
@@ -123,12 +135,11 @@ public class ResultFragment extends Fragment {
             nationalView.setText("독일");
             flagView.setImageResource(R.drawable.if_germany_1);
         }else if(national!=null && national.equals("4")) {
-            nationalView.setText("호주");
-            flagView.setImageResource(R.drawable.if_australia_1);
+            nationalView.setText("영국");
+            flagView.setImageResource(R.drawable.if_englend_1);
         }
 
-        System.out.print(national);
-        System.out.print("shppingCenter===============?"+national);
+        System.out.print("national===============?"+national);
         return rootView;
     }
     //데이터를 관리하는 어뎁터
@@ -162,16 +173,17 @@ public class ResultFragment extends Fragment {
             view.setAgent(item.getAgent());
             //예상국제배송비
             if(item.getShppingCharge().equals("0") ){
-                view.setShppingCharge("범위초과!");
+                view.setShppingCharge("범위초과-문의바람");
             }else{
                 view.setShppingCharge(item.getShppingCharge()+"$");
             }
             //view.setRealWeight(item.getRealWeight()+" lbs");
-            view.setApplyWeight(item.getApplyWeight()+" lbs");
+
+            view.setApplyWeight(item.getApplyWeight());
             if(item.getVolumeWeight()==null || item.getVolumeWeight().trim().equals("") || item.getVolumeWeight().equals("0")){
                 view.setVolumeWeight("   -");
             }else{
-                view.setVolumeWeight(item.getVolumeWeight()+" lbs");
+                view.setVolumeWeight(item.getVolumeWeight());
             }
 
             view.setLocalShipCharge(item.getLocalShipChage()); //한국국내배송비
@@ -181,6 +193,7 @@ public class ResultFragment extends Fragment {
                 view.setNote("");
             }
             view.setShippingCenter(item.getShippingCenterName());
+            view.setShippingGubun(item.getGubun()); //항공/해상구분
             return view;
         }
         //데이터 넣기
@@ -198,54 +211,77 @@ public class ResultFragment extends Fragment {
         listView.setAdapter(adapter);
     }
     //json파일 공통으로 불러오는 메서드
-    private Map<String,String> getMapWeightPrice(String shippingGubun, String shppingCenter ) {
+    private Map<String,String> getMapWeightPrice(String beadeaji, String shppingCenter, String ShipGun, String national ) {
         // myJson.json
         JSONParser parser = new JSONParser();
         InputStream inputStream = null;
-        if(shippingGubun.equals("malltail")){
-            inputStream =  getResources().openRawResource(R.raw.malltail);
-        }else if(shippingGubun.equals("nygirlz")){
-            inputStream =  getResources().openRawResource(R.raw.nygirlz);
-        }else if(shippingGubun.equals("iporter")){
-            //{"CA-켈리포니아","DW-델라웨이","NJ-뉴저지", "OR-오레곤"}
-            if(shppingCenter!=null && shppingCenter.equals("0")){
-                inputStream =  getResources().openRawResource(R.raw.iporter_ca);
-            }else  if(shppingCenter!=null && shppingCenter.equals("2")) {
-                inputStream =  getResources().openRawResource(R.raw.iporter_nj);
-            }else  if(shppingCenter!=null && shppingCenter.equals("3")) {
-                inputStream =  getResources().openRawResource(R.raw.iporter_or);
+        if(national!=null && national.equals("0")) {//미국
+            if(beadeaji.equals("malltail")){
+                inputStream =  getResources().openRawResource(R.raw.malltail);
+            }else if(beadeaji.equals("nygirlz")){
+                inputStream =  getResources().openRawResource(R.raw.nygirlz);
+            }else if(beadeaji.equals("iporter")){
+                //{"CA-켈리포니아","DW-델라웨이","NJ-뉴저지", "OR-오레곤"}
+                if(shppingCenter!=null && shppingCenter.equals("0")){
+                    inputStream =  getResources().openRawResource(R.raw.iporter_ca);
+                }else  if(shppingCenter!=null && shppingCenter.equals("2")) {
+                    inputStream =  getResources().openRawResource(R.raw.iporter_nj);
+                }else  if(shppingCenter!=null && shppingCenter.equals("3")) {
+                    inputStream =  getResources().openRawResource(R.raw.iporter_or);
+                }
+            }else if(beadeaji.equals("yogirloo")){
+                inputStream =  getResources().openRawResource(R.raw.yogirloo);
             }
-        }else if(shippingGubun.equals("yogirloo")){
-            inputStream =  getResources().openRawResource(R.raw.yogirloo);
+        }else if(national!=null && national.equals("1")) {//중국
+            if(beadeaji.equals("malltail")){
+                if(ShipGun!=null && ShipGun.equals("F")){
+                    inputStream =  getResources().openRawResource(R.raw.malltail_cha_fly);
+                }else  if(ShipGun!=null && ShipGun.equals("S")) {
+                    inputStream =  getResources().openRawResource(R.raw.malltail_cha_ship);
+                }
+            }else if(beadeaji.equals("iporter")) {
+                if(ShipGun!=null && ShipGun.equals("F")){
+                    inputStream =  getResources().openRawResource(R.raw.iporter_cha_fly);
+                }else  if(ShipGun!=null && ShipGun.equals("S")) {
+                    inputStream =  getResources().openRawResource(R.raw.iporter_cha_ship);
+                }
+            }
+        }else if(national!=null && national.equals("2")) {//일본
+            if(beadeaji.equals("malltail")){
+                if(ShipGun!=null && ShipGun.equals("F")){
+                    inputStream =  getResources().openRawResource(R.raw.malltail_jpy_fly);
+                }else  if(ShipGun!=null && ShipGun.equals("S")) {
+                    inputStream =  getResources().openRawResource(R.raw.malltail_jpy_ship);
+                }
+            }else if(beadeaji.equals("iporter")) {
+                if(ShipGun!=null && ShipGun.equals("F")){
+                    inputStream =  getResources().openRawResource(R.raw.iporter_jpy_fly);
+                }else  if(ShipGun!=null && ShipGun.equals("S")) {
+                    inputStream =  getResources().openRawResource(R.raw.iporter_jpy_ship);
+                }
+            }
+        }else if(national!=null && national.equals("3")) {//독일
+            if(beadeaji.equals("malltail")){
+                inputStream =  getResources().openRawResource(R.raw.malltail_gmy);
+            }else if(beadeaji.equals("iporter")) {
+                inputStream =  getResources().openRawResource(R.raw.iporter_gmy);
+            }
+        }else if(national!=null && national.equals("4")) {//영국
+            if(beadeaji.equals("iporter")) {
+                inputStream =  getResources().openRawResource(R.raw.iporter_eng);
+            }
         }
+
         InputStreamReader reader = new InputStreamReader(inputStream);
         BufferedReader buffer = new BufferedReader(reader);
         StringBuffer sb = new StringBuffer();
         String line = null;
         Map<String, String> mp = new HashMap<String, String>();
         try {
-            /*while ((line = buffer.readLine()) != null) {
-                sb.append(line);
-            }
-            System.out.println("------------------------------------------");
-            JSONObject jsonObject = new JSONObject(sb.toString());
-
-
-
-            System.out.println(jsonObject);
-            System.out.println(jsonObject.get("lbs"));
-            JSONObject lbsJson = (JSONObject) jsonObject.get("lbs");
-            System.out.println(lbsJson.toString());
-
-            System.out.println(lbsJson.names());
-            System.out.println(lbsJson.keys());
-            */
-
             Object obj = parser.parse(reader);
             JSONArray jsonArray =(JSONArray) obj;
 
             System.out.println("------------------------------------------");
-            //System.out.println(jsonArray);
             System.out.println(jsonArray.get(0));
             JSONObject jObj =null;
             Collection<String> values = null;
@@ -266,7 +302,7 @@ public class ResultFragment extends Fragment {
 
                // System.out.println(values.toArray()[0]);
                 //만약 요걸루의 경우 범위값으로 되어있으므로 빈범위분은 계산하여 임의로 채워줌.
-                if(shippingGubun.equals("yogirloo")){
+                if(beadeaji.equals("yogirloo")){
 
                     for(int j=beforePound+1; j<currPound ; j++){
                         mp.put(j+"",currPrice );
@@ -274,20 +310,15 @@ public class ResultFragment extends Fragment {
                     beforePound =Integer.parseInt( values.toArray()[0].toString());
                 }
             }
-
-            //System.out.println(mp.toString());
-           // System.out.println(mp.size());
         }catch (Exception e){
 
         }
         return mp;
     }
     //공통 입력받은 값으로 배송비 계산
-    private CompShppingAgentVO calDeliveryPrice(String shippingGubun, String shppingCenter){
+    private CompShppingAgentVO calDeliveryPrice(String beadeaji, String shppingCenter, String shipGubun){
         CompShppingAgentVO vo = new CompShppingAgentVO();
         try {
-            //String shppingCenter = getArguments().getString("shippingCenter"); //물류센터
-            Map<String, String> infoMap = getMapWeightPrice(shippingGubun, shppingCenter);
 
             //부피무게 적용여부 확인
 			/*항공화물의 무게비용 당 허용되는 부피를 초과하는 화물의 경우, 중량무게 대신 부피환산무게(이하 부피무게)를 항공화물운임단가로 적용합니다.
@@ -302,9 +333,13 @@ public class ResultFragment extends Fragment {
             String goodHeight = getArguments().getString("goodHeight"); //높이
             String goodVertical = getArguments().getString("goodVertical"); //세로
             String goodWeight = getArguments().getString("goodWeight"); //중량
+            String national = getArguments().getString("national"); //국가정보
             BigDecimal weight = new BigDecimal(goodWeight); //입력받은 무게
             System.out.println("입력받은값----->"+weight);
             BigDecimal finalWeight= weight.setScale(0, BigDecimal.ROUND_UP)  ; //소스점 자리 반올림하여 무게 산정함.
+            ////////////////////////////json파일에서 무게별 금액정보 얻어롬 /////////////////////////////
+            Map<String, String> infoMap = getMapWeightPrice(beadeaji, shppingCenter, shipGubun, national);
+            ///////////////////////////////////////////////////////////////////////////////////////
 
             String note="";  //노트
             System.out.println("width=>" + goodWidth);
@@ -320,7 +355,7 @@ public class ResultFragment extends Fragment {
                  height =  Integer.parseInt(goodHeight);  //높이
                 System.out.println("width=>" + width + "  height==>" + height + "  vertical==>" + vertical);
 
-                if (shippingGubun.equals("yogirloo")) {
+                if (beadeaji.equals("yogirloo")) {
                     //요걸루의 경우 부피무게 기준이 다름 CBM으로 다시 계산방식 해줘야 함.
                     volumeWeight = ( new BigDecimal(width*height*vertical)).multiply(new BigDecimal("0.000016"));
                     volumeWeight = ( new BigDecimal(width*height*vertical)).divide(new BigDecimal(166), BigDecimal.ROUND_UP);
@@ -328,7 +363,7 @@ public class ResultFragment extends Fragment {
                     volumeWeight = ( new BigDecimal(width*height*vertical)).divide(new BigDecimal(166), BigDecimal.ROUND_UP);
 
                     //부피무게계산
-                    if(shippingGubun.equals("malltail")){
+                    if(beadeaji.equals("malltail")){
 
                         //한변의 길이가 60인치를 초과하는 경우 부피면제 100%적용
                         if(width>60 || height>60 || vertical>60 ){
@@ -345,7 +380,7 @@ public class ResultFragment extends Fragment {
                             finalWeight = volumeWeight; //부피무게가 더 크면 값을 치환해줌
                             System.out.println("비교후 volumeWeight=="+volumeWeight+"    finalWeight=="+finalWeight);
                         }
-                    }else if(shippingGubun.equals("nygirlz")){
+                    }else if(beadeaji.equals("nygirlz")){
                         //한변의 길이가 70인치를 초과하는 경우 부피면제 100%적용
                         if(width>70 || height>70 || vertical>70 ){
                             note="한변의 길이가 70인치를 초과하는 경우 부피무게100%적용";
@@ -361,7 +396,7 @@ public class ResultFragment extends Fragment {
                             finalWeight = volumeWeight; //부피무게가 더 크면 값을 치환해줌
                             System.out.println("비교후 volumeWeight=="+volumeWeight+"    finalWeight=="+finalWeight);
                         }
-                    }else if(shippingGubun.equals("iporter")){
+                    }else if(beadeaji.equals("iporter")){
                         //CA,NJ : 부피무게와 중량의 차가 30lbs이상인 경우 부피무게 , 30lbs미만시 중량
                         //OR : 중량과 부피무게중 큰 무게 적용
                         //{"CA-켈리포니아","DW-델라웨이","NJ-뉴저지", "OR-오레곤"}
@@ -395,13 +430,13 @@ public class ResultFragment extends Fragment {
             //배대지별 배송요율표 max설정
             BigDecimal shipPrice = null;
             int maxLbs =0;
-            if(shippingGubun.equals("malltail")){
+            if(beadeaji.equals("malltail")){
                 maxLbs = 60; //60파운드 이상은 1:1 게시판 문의
-            }else if(shippingGubun.equals("nygirlz")){
+            }else if(beadeaji.equals("nygirlz")){
                 maxLbs=30;
-            }else if(shippingGubun.equals("iporter")){
+            }else if(beadeaji.equals("iporter")){
                 maxLbs=2000;
-            }else if(shippingGubun.equals("yogirloo")){
+            }else if(beadeaji.equals("yogirloo")){
                 maxLbs=1837;
             }
             if(finalWeight.intValue() <= maxLbs ){
@@ -421,23 +456,23 @@ public class ResultFragment extends Fragment {
             System.out.print(shppingCenter);
             System.out.println("계산된 무게==>"+finalWeight);
 
-            if(shippingGubun.equals("malltail")){
+            if(beadeaji.equals("malltail")){
                 vo.setAgent("몰테일");
-                vo.setGubun("항공");
                 vo.setLocalShipChage("-");
-
-            }else if(shippingGubun.equals("nygirlz")){
+            }else if(beadeaji.equals("nygirlz")){
                 vo.setAgent("뉴욕걸즈");
-                vo.setGubun("항공");
                 vo.setLocalShipChage("-");
-            }else if(shippingGubun.equals("iporter")){
+            }else if(beadeaji.equals("iporter")){
                 vo.setAgent("아이포터");
-                vo.setGubun("항공");
                 vo.setLocalShipChage("-");
-            }else if(shippingGubun.equals("yogirloo")){
+            }else if(beadeaji.equals("yogirloo")){
                 vo.setAgent("요걸루");
-                vo.setGubun("해상");
                 vo.setLocalShipChage("2차결제");
+            }
+            if(shipGubun!=null && shipGubun.equals("F")){
+                vo.setGubun("항공");
+            }else if(shipGubun!=null && shipGubun.equals("S")){
+                vo.setGubun("해상");
             }
             //{"CA-켈리포니아","DW-델라웨이","NJ-뉴저지", "OR-오레곤"}
             if(shppingCenter!=null && shppingCenter.equals("0")) {
@@ -449,13 +484,20 @@ public class ResultFragment extends Fragment {
             }else if(shppingCenter!=null && shppingCenter.equals("3")) {
                 vo.setShippingCenterName("<OR-오레곤>");
             }
-            vo.setRealWeight(goodWeight);
-            vo.setVolumeWeight(volumeWeight.toString());
-            vo.setApplyWeight(finalWeight.toString());
+            //미국이면 lbs 아니면 kg
+            String weightUnit = "";
+            if(national!=null && national.equals("0")) {
+                weightUnit= "lbs";
+            }else {
+                weightUnit= "kg";
+            }
+            vo.setRealWeight(goodWeight+weightUnit);
+            vo.setVolumeWeight(volumeWeight.toString()+weightUnit);
+            vo.setApplyWeight(finalWeight.toString()+weightUnit);
             vo.setShppingCharge(shipPrice.toString());
             vo.setNote(note);
-        }catch(Exception e){
-            e.printStackTrace();
+        }catch(Exception ex){
+            ex.printStackTrace();
         }
         return  vo;
     }

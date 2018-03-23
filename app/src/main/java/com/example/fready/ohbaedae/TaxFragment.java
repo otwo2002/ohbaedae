@@ -67,7 +67,7 @@ public class TaxFragment  extends Fragment {
         webView.setWebChromeClient(new WebChromeClient());
 
         webView.loadUrl("https://search.naver.com/search.naver?sm=tab_sug.top&where=nexearch&query=%EA%B4%80%EB%B6%80%EA%B0%80%EC%84%B8%EA%B3%84%EC%82%B0%EA%B8%B0&oquery=%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C+%EC%8A%A4%ED%8A%9C%EB%94%94%EC%98%A4+json%EC%B6%94%EA%B0%80&tqi=TqqRZdpVuFdsst3UzdossssstWK-451046&acq=%EA%B4%80%EB%B6%80&acr=1&qdt=0");
-        webView.scrollTo(0,600);
+        webView.scrollTo(0,400);
         return rootView;
     }
 }

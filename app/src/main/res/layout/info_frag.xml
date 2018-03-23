@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center">
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
             android:layout_width="wrap_content"
@@ -79,7 +80,7 @@
                     <TextView
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:text="무게(lb)" />
+                        android:text="무게" />
 
                     <EditText
                         android:id="@+id/goodWeight"
@@ -87,6 +88,11 @@
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
                         android:gravity="right"/>
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:text="파운드(lbs)"
+                        android:id="@+id/weightUnit"/>
 
                 </LinearLayout>
                 <LinearLayout

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -8,15 +9,19 @@
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <TableRow>
+
+        <TableRow
+            android:background="#FFFFFF">
             <TextView
                 android:id="@+id/agent"
-                android:layout_width="90dp"
+                android:layout_width="80dp"
                 android:layout_height="30dp"
                 android:text="배송대행지"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"/>
         </TableRow>
-        <TableRow>
+        <TableRow
+            android:background="#FFFFFF">
             <TextView
                 android:id="@+id/shippingCenter"
                 android:layout_width="90dp"
@@ -26,7 +31,28 @@
                 android:layout_gravity="center_horizontal"/>
         </TableRow>
     </TableLayout>
-
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TableRow>
+            <ImageView
+                android:id="@+id/shipGubunImg"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/if_airport_1"
+                android:layout_gravity="center"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/shipGubun"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:text=""
+                android:textSize="10dp"
+                android:layout_gravity="center_horizontal"/>
+        </TableRow>
+    </TableLayout>
 
     <TableLayout
         android:layout_width="wrap_content"

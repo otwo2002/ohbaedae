@@ -2,18 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="500dp"
+    android:layout_height="700dp"
     android:orientation="vertical"
     >
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:layout_gravity="center"
         android:gravity="center_horizontal"
         android:background="#FFFFFF"
         android:textColor="@android:color/darker_gray"
         android:text="아래 결과표는 단순 무게비용 비교표이며 배대지별 배송비계산을 참조하세요!!"
-        android:layout_margin="10dp"
+        android:layout_margin="0dp"
         android:textSize="10dp"/>
 
     <LinearLayout
@@ -55,6 +55,12 @@
             android:text=""
             android:textColor="@android:color/holo_orange_light" />
     </LinearLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray">
+        <TableRow/>
+    </TableLayout>
 
     <ListView
         android:id="@+id/listView"
@@ -63,6 +69,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="#F6F6F6"
-        android:divider="#ffffff"
-        android:dividerHeight="3dp" />
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp" />
 </LinearLayout>

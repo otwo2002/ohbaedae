@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,6 +22,9 @@ public class ResultShipView extends LinearLayout {
     TextView textLocalShipCharge;
     TextView textShippingCenter;
     TextView textNote;
+    ImageView shipGubunImg;
+    TextView textShipGubun;
+
    // TextView textNote;
 
 
@@ -46,6 +50,8 @@ public class ResultShipView extends LinearLayout {
         textLocalShipCharge= (TextView)findViewById(R.id.localShipCharge);
         textNote= (TextView)findViewById(R.id.note);
         textShippingCenter=(TextView)findViewById(R.id.shippingCenter);
+        shipGubunImg=(ImageView) findViewById(R.id.shipGubunImg);
+        textShipGubun=(TextView)findViewById(R.id.shipGubun);
     }
 
     public void setAgent(String agent){
@@ -68,4 +74,13 @@ public class ResultShipView extends LinearLayout {
 
     public void setNote(String note) { textNote.setText(note);}
     public void setShippingCenter(String shippingCenter) { textShippingCenter.setText(shippingCenter);}
+    public void setShippingGubun(String shippingGubun){
+        if(shippingGubun!=null  && shippingGubun.equals("해상") ){
+            shipGubunImg.setImageResource(R.drawable.if_ship_1);
+            textShipGubun.setText(shippingGubun);
+        }else{
+            shipGubunImg.setImageResource(R.drawable.if_airport_1);
+            textShipGubun.setText(shippingGubun);
+        }
+    }
 }

@@ -6,7 +6,7 @@ package com.example.fready.ohbaedae;
  */
 
 public class CompShppingAgentVO {
-
+    private String national ;  //국가
     private String agent;        //배대지 코드
     private String gubun;         //항공선박구분
     private String realWeight;   //실무게
@@ -102,5 +102,13 @@ public class CompShppingAgentVO {
 
     public void setShippingCenterName(String shippingCenterName) {
         this.shippingCenterName = shippingCenterName;
+    }
+
+    public String getNational() {
+        return national;
+    }
+
+    public void setNational(String national) {
+        this.national = national;
     }
 }

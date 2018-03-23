@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -52,13 +53,70 @@ public class InfoFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         MobileAds.initialize(getContext(), R.string.banner_ad_test_unit_id+"");
-        //Toast.makeText(rootView.getContext(), "onActivityCreated", Toast.LENGTH_LONG).show();
+
+        //광고
+        // Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111  - 테스트 아이디
+
+        mAdView = rootView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+                //Toast.makeText(rootView.getContext(), "광고로드", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when when the user is about to return
+                // to the app after tapping on an ad.
+            }
+        });
+        //-------------------------------------광고끝 ---------------------------------------------
+
         nationalSpinner = (Spinner)rootView.findViewById(R.id.national);
+
+        ArrayAdapter nationalAdapter= ArrayAdapter.createFromResource(getContext(), R.array.national, android.R.layout.simple_dropdown_item_1line);
+        nationalSpinner.setAdapter(nationalAdapter);
+        nationalSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            TextView weightUnit =  rootView.findViewById(R.id.weightUnit);
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if(i==0){
+                    weightUnit.setText("파운드(lbs)");
+                }else{
+                    weightUnit.setText("킬로그램(kg)");
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                weightUnit.setText("파운드(lbs)");
+            }
+        });
         /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 rootView.getContext(),android.R.layout.simple_spinner_item, items
         );*/
-        ArrayAdapter nationalAdapter= ArrayAdapter.createFromResource(getContext(), R.array.national, android.R.layout.simple_dropdown_item_1line);
-        nationalSpinner.setAdapter(nationalAdapter);
         //물류센터
         /*centerSpinner = (Spinner)rootView.findViewById(R.id.shippingCenter);
         ArrayAdapter centerAdapter= ArrayAdapter.createFromResource(getContext(), R.array.usa_center, android.R.layout.simple_dropdown_item_1line);
@@ -100,42 +158,7 @@ public class InfoFragment extends Fragment{
             }
         });
 
-        //광고
-        // Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111  - 테스트 아이디
 
-        mAdView = rootView.findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-
-        mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                // Code to be executed when an ad finishes loading.
-                //Toast.makeText(rootView.getContext(), "광고로드", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                // Code to be executed when an ad request fails.
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when an ad opens an overlay that
-                // covers the screen.
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when when the user is about to return
-                // to the app after tapping on an ad.
-            }
-        });
     }
 
     private void callResult(){
