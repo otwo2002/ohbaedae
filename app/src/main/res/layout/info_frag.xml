@@ -7,46 +7,22 @@
     android:background="#FFFFFF"
     android:orientation="vertical"
     android:paddingRight="5px">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center">
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            ads:adSize="BANNER"
-            ads:adUnitId="@string/banner_ad_test_unit_id"/>
-    </LinearLayout>
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:layout_margin="5dp"
-        android:text="  물류센터선택후 무게, 규격을 입력하시면 예상배송료를 계산할수있어요! "
-        android:textSize="11dp"
-        android:gravity="center_horizontal"
-        android:layout_gravity="center"
-        android:textColor="@android:color/darker_gray"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:orientation="vertical"
-            android:id="@+id/calResult"
+
             android:background="#F6F6F6"
-            android:layout_margin="1dp">
-        <LinearLayout
+            android:layout_margin="1dp" >
+            <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="#FFFFFF"
             android:layout_margin="2dp">
@@ -61,17 +37,20 @@
                     <TextView
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:text="구입국가" />
+                        android:text="구입국가"
+                        android:layout_gravity="center"
+                        android:textSize="12dp"/>
 
                     <Spinner
                         android:id="@+id/national"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp" />
+                        android:layout_height="25dp"
+                        android:textSize="12dp"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:orientation="horizontal"
                     android:paddingLeft="10dp"
                     android:layout_margin="1dp"
@@ -80,24 +59,29 @@
                     <TextView
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:text="무게" />
+                        android:text="무게"
+                        android:textSize="12dp"
+                        android:layout_gravity="center"/>
 
                     <EditText
                         android:id="@+id/goodWeight"
                         android:layout_width="100dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
                         android:inputType="numberDecimal"
-                        android:gravity="right"/>
+                        android:gravity="right"
+                        android:textSize="9dp"/>
                     <TextView
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:text="파운드(lbs)"
-                        android:id="@+id/weightUnit"/>
+                        android:id="@+id/weightUnit"
+                        android:textSize="12dp"
+                        android:layout_gravity="center"/>
 
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:orientation="horizontal"
                     android:paddingLeft="10dp"
                     android:layout_margin="1dp"
@@ -106,51 +90,70 @@
                     <TextView
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:text="규격(inch)" />
+                        android:text="규격(inch)"
+                        android:textSize="12dp"
+                        android:layout_gravity="center"/>
                     <TextView
                         android:layout_width="30dp"
                         android:layout_height="wrap_content"
-                        android:text="가로" />
+                        android:text="가로"
+                        android:textSize="12dp"
+                        android:layout_gravity="center"/>
                     <EditText
                         android:id="@+id/goodWidth"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
                         android:layout_weight="1"
                         android:inputType="numberDecimal"
-                        android:gravity="right"/>
+                        android:gravity="right"
+                        android:textSize="11dp"/>
                     <TextView
                         android:layout_width="30dp"
                         android:layout_height="wrap_content"
-                        android:text="세로" />
+                        android:text="세로"
+                        android:textSize="12dp"
+                        android:layout_gravity="center"/>
                     <EditText
                         android:id="@+id/goodVertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
                         android:layout_weight="1"
                         android:inputType="numberDecimal"
-                        android:gravity="right"/>
+                        android:gravity="right"
+                        android:textSize="11dp"/>
                     <TextView
                         android:layout_width="30dp"
                         android:layout_height="wrap_content"
-                        android:text="높이" />
+                        android:text="높이"
+                        android:textSize="12dp"
+                        android:layout_gravity="center"/>
                     <EditText
                         android:id="@+id/goodHeight"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
                         android:layout_weight="1"
                         android:inputType="numberDecimal"
-                        android:gravity="right"/>
+                        android:gravity="right"
+                        android:textSize="11dp"/>
                 </LinearLayout>
             </LinearLayout>
-            <Button
-                android:id="@+id/button"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:text="계산하기"/>
 
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="계산하기"
+                    android:textSize="9dp"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/calResult"
+                android:layout_weight="1">
+            </FrameLayout>
         </LinearLayout>
     </ScrollView>
 

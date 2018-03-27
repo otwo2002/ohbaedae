@@ -57,7 +57,7 @@ public class InfoFragment extends Fragment{
         //광고
         // Sample AdMob app ID: ca-app-pub-3940256099942544/6300978111  - 테스트 아이디
 
-        mAdView = rootView.findViewById(R.id.adView);
+        /*mAdView = rootView.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
 
         mAdView.loadAd(adRequest);
@@ -90,6 +90,7 @@ public class InfoFragment extends Fragment{
                 // to the app after tapping on an ad.
             }
         });
+        */
         //-------------------------------------광고끝 ---------------------------------------------
 
         nationalSpinner = (Spinner)rootView.findViewById(R.id.national);
