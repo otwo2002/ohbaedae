@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -92,7 +93,7 @@ public class ResultFragment extends Fragment {
             voList.add(calDeliveryPrice("iporter", "I", "F"));
             voList.add(calDeliveryPrice("iporter", "I", "S"));
         }else if(national!=null && national.equals("3")) {//독일
-            voList.add(calDeliveryPrice("malltail", "G", "F"));
+            //voList.add(calDeliveryPrice("malltail", "G", "F"));
             voList.add(calDeliveryPrice("iporter", "G", "F"));
         }else if(national!=null && national.equals("4")) {//영국
             voList.add(calDeliveryPrice("iporter", "E", "F"));
@@ -140,6 +141,8 @@ public class ResultFragment extends Fragment {
         }
 
         System.out.print("national===============?"+national);
+
+
         return rootView;
     }
     //데이터를 관리하는 어뎁터
@@ -207,11 +210,39 @@ public class ResultFragment extends Fragment {
         for (int i = 0; i< list.size(); i++){
             adapter.addIem(list.get(i));
         }
-
         listView.setAdapter(adapter);
+        setListViewHeightBasedOnChildren(listView);
     }
+
+    public void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        System.out.println( "@@@@@@@@@@@@@@@@@@----listAdapter-------------");
+        System.out.println(listAdapter);
+        if (listAdapter == null) {
+            return;
+        }
+
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+        System.out.println( "----listAdapter.getCount()-------------"+listAdapter.getCount());
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            System.out.println(listItem.getMeasuredHeight());
+            //totalHeight += listItem.getMeasuredHeight();
+            totalHeight += 180;
+            System.out.print( "**********"+listItem.getMeasuredHeight()+"-----------------");
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
+
+
+
     //json파일 공통으로 불러오는 메서드
-    private Map<String,String> getMapWeightPrice(String beadeaji, String shppingCenter, String ShipGun, String national ) {
+    private Map<String,String> getMapWeightPrice(String beadeaji, String shppingCenter, String ShipGun, String national, boolean  yogirlooV ) {
         // myJson.json
         JSONParser parser = new JSONParser();
         InputStream inputStream = null;
@@ -287,27 +318,45 @@ public class ResultFragment extends Fragment {
             Collection<String> values = null;
             int beforePound =0;
             int currPound = 0;
+            int currKg = 0;
             String currPrice="";
             for (int i =0; i<jsonArray.size(); i++){
+
                 jObj = (JSONObject)jsonArray.get(i);
                 values = jObj.values();
+                if(beadeaji.equals("yogirloo")){
 
-                currPound = ( new BigDecimal(values.toArray()[0].toString()))
+
+                    if(yogirlooV){ //CBM무게표*100
+                        currKg = ( new BigDecimal(values.toArray()[2].toString()))
+                                .multiply(new BigDecimal("100")).intValue();
+
+                        currPrice = values.toArray()[1].toString().replace("$", "").replace(")", "").trim();
+                        mp.put(currKg+"",currPrice );
+                    }else{//파운드 무게표
+                        currPound = ( new BigDecimal(values.toArray()[0].toString()))
                                 .setScale(0, BigDecimal.ROUND_FLOOR)
                                 .intValue();
 
-                currPrice = values.toArray()[1].toString().replace("$", "").replace(")", "").trim();
-                mp.put(currPound+"",currPrice );
-                //System.out.println(jObj.values());
+                        currPrice = values.toArray()[1].toString().replace("$", "").replace(")", "").trim();
 
-               // System.out.println(values.toArray()[0]);
-                //만약 요걸루의 경우 범위값으로 되어있으므로 빈범위분은 계산하여 임의로 채워줌.
-                if(beadeaji.equals("yogirloo")){
-
-                    for(int j=beforePound+1; j<currPound ; j++){
-                        mp.put(j+"",currPrice );
+                        mp.put(currPound+"",currPrice );
+                        //만약 요걸루의 경우 범위값으로 되어있으므로 빈범위분은 계산하여 임의로 채워줌.
+                        for(int j=beforePound+1; j<currPound ; j++){
+                            mp.put(j+"",currPrice );
+                        }
+                        beforePound =Integer.parseInt( values.toArray()[0].toString());
                     }
-                    beforePound =Integer.parseInt( values.toArray()[0].toString());
+                    System.out.println(jObj.values());
+                }else{
+                    currPound = ( new BigDecimal(values.toArray()[0].toString()))
+                            .setScale(0, BigDecimal.ROUND_FLOOR)
+                            .intValue();
+
+                    currPrice = values.toArray()[1].toString().replace("$", "").replace(")", "").trim();
+                    mp.put(currPound+"",currPrice );
+                    System.out.println(jObj.values());
+
                 }
             }
         }catch (Exception e){
@@ -338,87 +387,215 @@ public class ResultFragment extends Fragment {
             System.out.println("입력받은값----->"+weight);
             BigDecimal finalWeight= weight.setScale(0, BigDecimal.ROUND_UP)  ; //소스점 자리 반올림하여 무게 산정함.
             ////////////////////////////json파일에서 무게별 금액정보 얻어롬 /////////////////////////////
-            Map<String, String> infoMap = getMapWeightPrice(beadeaji, shppingCenter, shipGubun, national);
+            Map<String, String> infoMap = getMapWeightPrice(beadeaji, shppingCenter, shipGubun, national, false);
             ///////////////////////////////////////////////////////////////////////////////////////
 
             String note="";  //노트
-            System.out.println("width=>" + goodWidth);
-            System.out.println("width=>" + goodWidth + "  height==>" + goodHeight + "  vertical==>" + goodVertical);
+           // System.out.println("width=>" + goodWidth);
+           // System.out.println("width=>" + goodWidth + "  height==>" + goodHeight + "  vertical==>" + goodVertical);
             //가로, 세로 , 높이 규격이 모두 있을때 부피무게 계산을 해줌.
             BigDecimal volumeWeight = BigDecimal.ZERO;
-            int width = 0;
-            int vertical = 0;
-            int height = 0;
-            if (goodWidth != null && goodHeight != null && goodVertical != null) {
-                 width = Integer.parseInt(goodWidth);  //가로
-                 vertical = Integer.parseInt(goodVertical);  //세로
-                 height =  Integer.parseInt(goodHeight);  //높이
+            BigDecimal width = BigDecimal.ZERO;
+            BigDecimal vertical = BigDecimal.ZERO;
+            BigDecimal height = BigDecimal.ZERO;
+            int maxLbs =0;
+            boolean yogirlooV = false;  //요걸루 부피무게 boolean값
+            if (goodWidth != null && goodHeight != null && goodVertical != null
+                    && !goodWidth.equals("") && !goodHeight.equals("") && !goodVertical.equals("") ) {
+                 width = new BigDecimal(goodWidth);  //가로
+                 vertical = new BigDecimal(goodVertical);  //세로
+                 height =  new BigDecimal(goodHeight);  //높이
                 System.out.println("width=>" + width + "  height==>" + height + "  vertical==>" + vertical);
+                if(national!=null && national.equals("0")) {//미국일때 계산
 
-                if (beadeaji.equals("yogirloo")) {
-                    //요걸루의 경우 부피무게 기준이 다름 CBM으로 다시 계산방식 해줘야 함.
-                    volumeWeight = ( new BigDecimal(width*height*vertical)).multiply(new BigDecimal("0.000016"));
-                    volumeWeight = ( new BigDecimal(width*height*vertical)).divide(new BigDecimal(166), BigDecimal.ROUND_UP);
-                } else {
-                    volumeWeight = ( new BigDecimal(width*height*vertical)).divide(new BigDecimal(166), BigDecimal.ROUND_UP);
-
-                    //부피무게계산
                     if(beadeaji.equals("malltail")){
-
-                        //한변의 길이가 60인치를 초과하는 경우 부피면제 100%적용
-                        if(width>60 || height>60 || vertical>60 ){
-                            note="한변의 길이가 60인치를 초과하는 경우 부피무게100%적용";
-                        }else{
-                            volumeWeight = volumeWeight.multiply(new BigDecimal("0.5")).setScale(0, BigDecimal.ROUND_UP); //부피 50%
-                            note="부피무게 50%면제 ";
-                        }
-                        //부피무게와 실무게를 비교하여 실무게와 부피무게 50%중 더 무게가 많은것으러로 책정 몰테일 /뉴욕걸즈 더 많은 것을 택함
-                        System.out.println("비교전 volumeWeight=="+volumeWeight+"    finalWeight=="+finalWeight);
-
-                        if(volumeWeight.compareTo(finalWeight) > 0){
-
-                            finalWeight = volumeWeight; //부피무게가 더 크면 값을 치환해줌
-                            System.out.println("비교후 volumeWeight=="+volumeWeight+"    finalWeight=="+finalWeight);
-                        }
+                        maxLbs = 60; //60파운드 이상은 1:1 게시판 문의
                     }else if(beadeaji.equals("nygirlz")){
-                        //한변의 길이가 70인치를 초과하는 경우 부피면제 100%적용
-                        if(width>70 || height>70 || vertical>70 ){
-                            note="한변의 길이가 70인치를 초과하는 경우 부피무게100%적용";
-                        }else{
-                            volumeWeight = volumeWeight.multiply(new BigDecimal("0.5")).setScale(0, BigDecimal.ROUND_UP); //부피 50%
-                            note="부피무게 50%면제 ";
+                        maxLbs=30;
+                    }else if(beadeaji.equals("iporter")){
+                        maxLbs=2000;
+                    }else if(beadeaji.equals("yogirloo")){
+                        maxLbs=1837;
+                    }
+                    if (beadeaji.equals("yogirloo")) {
+                        //요걸루의 경우 부피무게 기준이 다름 CBM으로 다시 계산방식 해줘야 함.
+                        //CBM계산은 가로(inch) X 세로(inch) X 높이(inch) X 0.000016  *100으로 환산하여 계산해줌.
+                        volumeWeight =  width.multiply(height).multiply(vertical).multiply(new BigDecimal( "0.0016"));
+                        volumeWeight = volumeWeight.setScale(0,BigDecimal.ROUND_UP);
+                        System.out.println("yogirloo -------------->volumeWeight "+volumeWeight);
+                        if(volumeWeight.compareTo(finalWeight) > 0 ){
+                            finalWeight = volumeWeight;
+                            infoMap = getMapWeightPrice(beadeaji, shppingCenter, shipGubun, national, true);
+                            maxLbs=99;
                         }
-                        //부피무게와 실무게를 비교하여 실무게와 부피무게 50%중 더 무게가 많은것으러로 책정 몰테일 /뉴욕걸즈 더 많은 것을 택함
-                        System.out.println("비교전 volumeWeight=="+volumeWeight+"    finalWeight=="+finalWeight);
+                    } else {
+                        volumeWeight = ( width.multiply(height).multiply(vertical) ).divide(new BigDecimal(166), BigDecimal.ROUND_UP);
 
-                        if(volumeWeight.compareTo(finalWeight) > 0){
+                        //부피무게계산
+                        if (beadeaji.equals("malltail")) {
 
+                            //한변의 길이가 60인치를 초과하는 경우 부피면제 100%적용
+                            if (width.compareTo(new BigDecimal("60")) >0 || height.compareTo(new BigDecimal("60")) > 0 || vertical.compareTo(new BigDecimal("60")) > 0) {
+                                note = "한변의 길이가 60인치를 초과하는 경우 부피무게100%적용";
+                            } else {
+                                volumeWeight = volumeWeight.multiply(new BigDecimal("0.5")).setScale(0, BigDecimal.ROUND_UP); //부피 50%
+                                note = "부피무게 50%면제 ";
+                            }
+                            //부피무게와 실무게를 비교하여 실무게와 부피무게 50%중 더 무게가 많은것으러로 책정 몰테일 /뉴욕걸즈 더 많은 것을 택함
+                            System.out.println("비교전 volumeWeight==" + volumeWeight + "    finalWeight==" + finalWeight);
+
+                            if (volumeWeight.compareTo(finalWeight) > 0) {
+
+                                finalWeight = volumeWeight; //부피무게가 더 크면 값을 치환해줌
+                                System.out.println("비교후 volumeWeight==" + volumeWeight + "    finalWeight==" + finalWeight);
+                            }
+                        } else if (beadeaji.equals("nygirlz")) {
+                            //한변의 길이가 70인치를 초과하는 경우 부피면제 100%적용
+                            if (width.compareTo(new BigDecimal("70")) >0 || height.compareTo(new BigDecimal("70")) > 0 || vertical.compareTo(new BigDecimal("70")) > 0) {
+                                note = "한변의 길이가 70인치를 초과하는 경우 부피무게100%적용";
+                            } else {
+                                volumeWeight = volumeWeight.multiply(new BigDecimal("0.5")).setScale(0, BigDecimal.ROUND_UP); //부피 50%
+                                note = "부피무게 50%면제 ";
+                            }
+                            //부피무게와 실무게를 비교하여 실무게와 부피무게 50%중 더 무게가 많은것으러로 책정 몰테일 /뉴욕걸즈 더 많은 것을 택함
+                            System.out.println("비교전 volumeWeight==" + volumeWeight + "    finalWeight==" + finalWeight);
+
+                            if (volumeWeight.compareTo(finalWeight) > 0) {
+
+                                finalWeight = volumeWeight; //부피무게가 더 크면 값을 치환해줌
+                                System.out.println("비교후 volumeWeight==" + volumeWeight + "    finalWeight==" + finalWeight);
+                            }
+                        } else if (beadeaji.equals("iporter")) {
+                            //CA,NJ : 부피무게와 중량의 차가 30lbs이상인 경우 부피무게 , 30lbs미만시 중량
+                            //OR : 중량과 부피무게중 큰 무게 적용
+                            //{"CA-켈리포니아","DW-델라웨이","NJ-뉴저지", "OR-오레곤"}
+                            //부피무게와 실무게를 비교하여 실무게와 부피무게 50%중 더 무게가 많은것으러로 책정 몰테일 /뉴욕걸즈 더 많은 것을 택함
+                            System.out.println("비교전 volumeWeight==" + volumeWeight + "    finalWeight==" + finalWeight);
+                            if (shppingCenter != null && shppingCenter.equals("3")) {
+                                if (volumeWeight.compareTo(finalWeight) > 0) {
+
+                                    finalWeight = volumeWeight; //부피무게가 더 크면 값을 치환해줌
+                                    System.out.println("비교후 volumeWeight==" + volumeWeight + "    finalWeight==" + finalWeight);
+
+                                }
+                                note = "OR센터 : 중량과부피부게중 큰무게적용";
+                            } else if (shppingCenter != null && (shppingCenter.equals("0") || shppingCenter.equals("2"))) {
+                                if ((volumeWeight.subtract(finalWeight)).compareTo(new BigDecimal(30)) > 0) {
+
+                                    finalWeight = volumeWeight; //부피무게가 더 크면 값을 치환해줌
+                                    System.out.println("비교후 volumeWeight==" + volumeWeight + "    finalWeight==" + finalWeight);
+                                }
+                                note = "CA,NJ센터 : 부피무게와 중량의 차가 30lbs이상인 경우 부피무게 , 30lbs미만시 중량";
+                            } else {
+                                note = "DW센터 : 물류센터 없음.";
+                            }
+                        }
+                    }
+                }else   if(national!=null && national.equals("1")) {//중국
+                    if(beadeaji.equals("malltail")){
+                        maxLbs = 30; //30kg 이상은 1:1 게시판 문의
+                    }else if(beadeaji.equals("nygirlz")){
+                        maxLbs=30;
+                    }else if(beadeaji.equals("iporter")){
+                        if(shipGubun!=null && shipGubun.equals("F")) {
+                            maxLbs = 700;
+                        }else if(shipGubun!=null && shipGubun.equals("S")) {
+                            maxLbs = 2000;//해상은 2000
+                        }
+
+                    }else if(beadeaji.equals("yogirloo")){
+                        maxLbs=1837;
+                    }
+                    //부피무게계산
+                    if (beadeaji.equals("malltail")) {
+                        //가로*세로*높이(cm) / 6000  <- 0.5kg단위로 계산됨.
+                        //부피무게와 중량무게중 큰것으로 금액을 적용
+                        volumeWeight = ( width.multiply(height).multiply(vertical) ).divide(new BigDecimal(6000), BigDecimal.ROUND_HALF_UP );
+                        System.out.print(volumeWeight+"<---------volumeWeight");
+                        volumeWeight = volumeWeight.setScale(1,BigDecimal.ROUND_HALF_UP);
+
+                        System.out.print(volumeWeight+"<---------volumeWeight ROUND_HALF_UP");
+                        if (volumeWeight.compareTo(finalWeight) > 0) {
                             finalWeight = volumeWeight; //부피무게가 더 크면 값을 치환해줌
-                            System.out.println("비교후 volumeWeight=="+volumeWeight+"    finalWeight=="+finalWeight);
+                        }
+                    }else if(beadeaji.equals("iporter")) {
+                        volumeWeight = ( width.multiply(height).multiply(vertical) ).divide(new BigDecimal(5000), BigDecimal.ROUND_HALF_UP );
+                        System.out.print(volumeWeight+"<---------volumeWeight");
+                        volumeWeight = volumeWeight.setScale(1,BigDecimal.ROUND_HALF_UP);
+                        if(volumeWeight.compareTo(weight) > 0){
+                            finalWeight = volumeWeight;
+                        }
+                    }
+                }else   if(national!=null && national.equals("2")) {//일본
+                    if(beadeaji.equals("malltail")){
+                        maxLbs = 30; //30kg 이상은 1:1 게시판 문의
+                    }else if(beadeaji.equals("nygirlz")){
+                        maxLbs=30;
+                    }else if(beadeaji.equals("iporter")){
+                        if(shipGubun!=null && shipGubun.equals("F")) {
+                            maxLbs = 800;
+                        }else if(shipGubun!=null && shipGubun.equals("S")) {
+                            maxLbs = 400;//해상은 2000
+                        }
+                    }else if(beadeaji.equals("yogirloo")){
+                        maxLbs=1837;
+                    }
+                    if (beadeaji.equals("malltail")) {
+                        //일본의 경우 중량으로 배송비 책정이 기본
+                        //단 부피무게공식(가로*세로*높이/5000)의 값이 68KG를 초과 또는 [(가로+세로)*2+높이]값이 330CM를 초과할경우 부피무게 68KG로 적용하여 배송비 책정 둘중 큰값으로 적용
+                        volumeWeight = ( width.multiply(height).multiply(vertical) ).divide(new BigDecimal(5000), BigDecimal.ROUND_HALF_UP );
+                        System.out.print(volumeWeight+"<---------volumeWeight");
+                        volumeWeight = volumeWeight.setScale(1,BigDecimal.ROUND_HALF_UP);
+
+                        System.out.print(volumeWeight+"<---------volumeWeight ROUND_HALF_UP");
+                        BigDecimal jWeight=  BigDecimal.ZERO;
+                        BigDecimal jLength = ( ( width.add(vertical) ).multiply(new BigDecimal("2")) )
+                                           .add(height);
+                        if(jLength.compareTo(new BigDecimal("330")) > 0){
+                            jWeight = new BigDecimal("68");
+                        }
+
+                        if (volumeWeight.compareTo(new BigDecimal("68")) > 0 || jWeight.compareTo(new BigDecimal("68")) == 0) {
+                            finalWeight = volumeWeight; //부피무게가 더 크면 값을 치환해줌
                         }
                     }else if(beadeaji.equals("iporter")){
-                        //CA,NJ : 부피무게와 중량의 차가 30lbs이상인 경우 부피무게 , 30lbs미만시 중량
-                        //OR : 중량과 부피무게중 큰 무게 적용
-                        //{"CA-켈리포니아","DW-델라웨이","NJ-뉴저지", "OR-오레곤"}
-                        //부피무게와 실무게를 비교하여 실무게와 부피무게 50%중 더 무게가 많은것으러로 책정 몰테일 /뉴욕걸즈 더 많은 것을 택함
-                        System.out.println("비교전 volumeWeight=="+volumeWeight+"    finalWeight=="+finalWeight);
-                        if(shppingCenter!=null && shppingCenter.equals("3")){
-                            if(volumeWeight.compareTo(finalWeight)> 0){
-
-                                finalWeight = volumeWeight; //부피무게가 더 크면 값을 치환해줌
-                                System.out.println("비교후 volumeWeight=="+volumeWeight+"    finalWeight=="+finalWeight);
-
-                            }
-                            note="OR센터 : 중량과부피부게중 큰무게적용";
-                        }else if(shppingCenter!=null && (shppingCenter.equals("0")|| shppingCenter.equals("2"))){
-                            if((volumeWeight.subtract(finalWeight)).compareTo(new BigDecimal(30)) > 0){
-
-                                finalWeight = volumeWeight; //부피무게가 더 크면 값을 치환해줌
-                                System.out.println("비교후 volumeWeight=="+volumeWeight+"    finalWeight=="+finalWeight);
-                            }
-                            note="CA,NJ센터 : 부피무게와 중량의 차가 30lbs이상인 경우 부피무게 , 30lbs미만시 중량";
+                        volumeWeight = ( width.multiply(height).multiply(vertical) ).divide(new BigDecimal(5000), BigDecimal.ROUND_HALF_UP );
+                        System.out.print(volumeWeight+"<---------volumeWeight");
+                        volumeWeight = volumeWeight.setScale(1,BigDecimal.ROUND_HALF_UP);
+                        //부피무게와 중량이 30Kg 미만인 경우 중량, 부피무게와 중량이 30Kg 이상인 경우 중량과 부피무게 중 큰 무게 적용
+                        if(volumeWeight.compareTo(new BigDecimal("30"))< 0 && weight.compareTo(new BigDecimal("30"))<0  ){
+                            finalWeight = weight;
                         }else{
-                            note = "DW센터 : 물류센터 없음.";
+                            if(volumeWeight.compareTo(weight) > 0){
+                                finalWeight = volumeWeight;
+                            }
+                        }
+
+                    }
+                }else   if(national!=null && national.equals("3")) {//독일
+                    if(beadeaji.equals("iporter")){
+                        maxLbs = 1000;
+                    }
+                    //책정된 중량무게와 실제 책정된 부피무게의 50% 할인 무게와 비교 후 부피무게가 더 작은 경우 중량, 부피무게가 더 큰 경우 부피무게
+                    if(beadeaji.equals("iporter")) {
+                        volumeWeight = ( width.multiply(height).multiply(vertical) ).divide(new BigDecimal(6000), BigDecimal.ROUND_HALF_UP );
+                        System.out.print(volumeWeight+"<---------volumeWeight");
+                        volumeWeight = volumeWeight.setScale(1,BigDecimal.ROUND_HALF_UP);
+                        if( (volumeWeight.multiply(new BigDecimal("0.5"))).compareTo(weight) > 0){
+                            finalWeight = volumeWeight;
+                        }
+                    }
+                }else   if(national!=null && national.equals("4")) {//영국
+                    if(beadeaji.equals("iporter")){
+                        maxLbs = 250;
+                    }
+                    //중량과 부피무게 중 큰 무게 적용
+                    if(beadeaji.equals("iporter")) {
+                        volumeWeight = ( width.multiply(height).multiply(vertical) ).divide(new BigDecimal(6000), BigDecimal.ROUND_HALF_UP );
+                        System.out.print(volumeWeight+"<---------volumeWeight");
+                        volumeWeight = volumeWeight.setScale(1,BigDecimal.ROUND_HALF_UP);
+                        if(volumeWeight.compareTo(weight) > 0){
+                            finalWeight = volumeWeight;
                         }
                     }
                 }
@@ -429,24 +606,9 @@ public class ResultFragment extends Fragment {
 
             //배대지별 배송요율표 max설정
             BigDecimal shipPrice = null;
-            int maxLbs =0;
-            if(beadeaji.equals("malltail")){
-                maxLbs = 60; //60파운드 이상은 1:1 게시판 문의
-            }else if(beadeaji.equals("nygirlz")){
-                maxLbs=30;
-            }else if(beadeaji.equals("iporter")){
-                maxLbs=2000;
-            }else if(beadeaji.equals("yogirloo")){
-                maxLbs=1837;
-            }
+
             if(finalWeight.intValue() <= maxLbs ){
-
-                    //뉴욕걸즈 요금표동일
-                    //요걸루 물류센터 하나
-                    //몰테일 요금표 동일
-                    //iporter : OR,CA, NJ요금표가 다름.
                     shipPrice = new BigDecimal(infoMap.get(finalWeight.toString()).toString());  //파운드별 배송비
-
             }else{
                 shipPrice = BigDecimal.ZERO;
             }

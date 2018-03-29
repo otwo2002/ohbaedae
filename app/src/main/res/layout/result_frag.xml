@@ -71,4 +71,10 @@
         android:background="#F6F6F6"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp" />
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray">
+        <TableRow/>
+    </TableLayout>
 </LinearLayout>

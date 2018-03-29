@@ -8,16 +8,11 @@
     android:orientation="vertical"
     android:paddingRight="5px">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical"
-
             android:background="#F6F6F6"
             android:layout_margin="1dp" >
             <LinearLayout
@@ -39,13 +34,13 @@
                         android:layout_height="wrap_content"
                         android:text="구입국가"
                         android:layout_gravity="center"
-                        android:textSize="12dp"/>
+                        android:textSize="13dp"/>
 
                     <Spinner
                         android:id="@+id/national"
                         android:layout_width="match_parent"
                         android:layout_height="25dp"
-                        android:textSize="12dp"/>
+                        android:textSize="13dp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -60,22 +55,23 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:text="무게"
-                        android:textSize="12dp"
+                        android:textSize="13dp"
                         android:layout_gravity="center"/>
 
                     <EditText
                         android:id="@+id/goodWeight"
                         android:layout_width="100dp"
-                        android:layout_height="35dp"
+                        android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
                         android:gravity="right"
-                        android:textSize="9dp"/>
+                        android:textSize="13dp"
+                        android:layout_gravity="bottom"/>
                     <TextView
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:text="파운드(lbs)"
                         android:id="@+id/weightUnit"
-                        android:textSize="12dp"
+                        android:textSize="13dp"
                         android:layout_gravity="center"/>
 
                 </LinearLayout>
@@ -91,62 +87,62 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:text="규격(inch)"
-                        android:textSize="12dp"
+                        android:textSize="13dp"
                         android:layout_gravity="center"/>
                     <TextView
                         android:layout_width="30dp"
                         android:layout_height="wrap_content"
                         android:text="가로"
-                        android:textSize="12dp"
+                        android:textSize="13dp"
                         android:layout_gravity="center"/>
                     <EditText
                         android:id="@+id/goodWidth"
                         android:layout_width="wrap_content"
-                        android:layout_height="35dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:inputType="numberDecimal"
                         android:gravity="right"
-                        android:textSize="11dp"/>
+                        android:textSize="13dp"/>
                     <TextView
                         android:layout_width="30dp"
                         android:layout_height="wrap_content"
                         android:text="세로"
-                        android:textSize="12dp"
+                        android:textSize="13dp"
                         android:layout_gravity="center"/>
                     <EditText
                         android:id="@+id/goodVertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="35dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:inputType="numberDecimal"
                         android:gravity="right"
-                        android:textSize="11dp"/>
+                        android:textSize="13dp"/>
                     <TextView
                         android:layout_width="30dp"
                         android:layout_height="wrap_content"
                         android:text="높이"
-                        android:textSize="12dp"
+                        android:textSize="13dp"
                         android:layout_gravity="center"/>
                     <EditText
                         android:id="@+id/goodHeight"
                         android:layout_width="wrap_content"
-                        android:layout_height="35dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:inputType="numberDecimal"
                         android:gravity="right"
-                        android:textSize="11dp"/>
+                        android:textSize="13dp"/>
                 </LinearLayout>
             </LinearLayout>
 
                 <Button
                     android:id="@+id/button"
                     android:layout_width="100dp"
-                    android:layout_height="30dp"
+                    android:layout_height="35dp"
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:text="계산하기"
-                    android:textSize="9dp"/>
+                    android:textSize="11dp"/>
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -154,7 +150,18 @@
                 android:id="@+id/calResult"
                 android:layout_weight="1">
             </FrameLayout>
-        </LinearLayout>
-    </ScrollView>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/adView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    ads:adSize="BANNER"
+                    ads:adUnitId="@string/banner_ad_test_unit_id"/>
+            </LinearLayout>
+        </LinearLayout>
 </LinearLayout>

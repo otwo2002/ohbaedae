@@ -149,7 +149,7 @@ public class InfoFragment extends Fragment{
                         || goodWidth ==null || goodWidth.trim().equals("") || goodWidth.trim().equals("0")){
                     AlertDialog dialog2;
                     AlertDialog.Builder builder2 = new AlertDialog.Builder(InfoFragment.this.getActivity());
-                    dialog2 = builder2.setMessage("규격(가로,세로,높이)중 입력 안되면 실무게로 계산됩니다. ")
+                    dialog2 = builder2.setMessage("규격(가로,세로,높이)이 입력 안되면 실무게로 계산됩니다. ")
                             .setPositiveButton("확인", null)
                             .create();
                     dialog2.show();

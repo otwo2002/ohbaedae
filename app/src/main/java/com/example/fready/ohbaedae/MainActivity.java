@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity
                 finish();
                 return;
             }
-            Toast.makeText(this, "한번더 누르면 어플리케이션이 종료됩니다. ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "뒤로버튼을 한번더 누르면 어플리케이션이 종료됩니다. ", Toast.LENGTH_SHORT).show();
             lastTimeBackPressed = System.currentTimeMillis();
         }
 
