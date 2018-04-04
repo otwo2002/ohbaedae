@@ -140,7 +140,7 @@ public class ResultFragment extends Fragment {
             flagView.setImageResource(R.drawable.if_englend_1);
         }
 
-        System.out.print("national===============?"+national);
+       // System.out.print("national===============?"+national);
 
 
         return rootView;
@@ -216,22 +216,22 @@ public class ResultFragment extends Fragment {
 
     public void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
-        System.out.println( "@@@@@@@@@@@@@@@@@@----listAdapter-------------");
-        System.out.println(listAdapter);
+       // System.out.println( "@@@@@@@@@@@@@@@@@@----listAdapter-------------");
+       // System.out.println(listAdapter);
         if (listAdapter == null) {
             return;
         }
 
         int totalHeight = 0;
         int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
-        System.out.println( "----listAdapter.getCount()-------------"+listAdapter.getCount());
+        //System.out.println( "----listAdapter.getCount()-------------"+listAdapter.getCount());
         for (int i = 0; i < listAdapter.getCount(); i++) {
             View listItem = listAdapter.getView(i, null, listView);
             listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            System.out.println(listItem.getMeasuredHeight());
+           // System.out.println(listItem.getMeasuredHeight());
             //totalHeight += listItem.getMeasuredHeight();
-            totalHeight += 180;
-            System.out.print( "**********"+listItem.getMeasuredHeight()+"-----------------");
+            totalHeight += 181;
+            //System.out.print( "**********"+listItem.getMeasuredHeight()+"----------------->>>"+i+"-----");
         }
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
@@ -321,19 +321,29 @@ public class ResultFragment extends Fragment {
             int currKg = 0;
             String currPrice="";
             for (int i =0; i<jsonArray.size(); i++){
-
+               // System.out.println("jsonArray.size()"+jsonArray.size());
                 jObj = (JSONObject)jsonArray.get(i);
                 values = jObj.values();
                 if(beadeaji.equals("yogirloo")){
-
-
+                    //System.out.println("values.toArray(0)"+values.toArray()[0]);
+                   // System.out.println("values.toArray(1)"+values.toArray()[1]);
+                   // System.out.println("values.toArray(2)"+values.toArray()[2]);
                     if(yogirlooV){ //CBM무게표*100
+                       // System.out.println("CBMiiiiiiiiii--->"+i);
                         currKg = ( new BigDecimal(values.toArray()[2].toString()))
                                 .multiply(new BigDecimal("100")).intValue();
 
                         currPrice = values.toArray()[1].toString().replace("$", "").replace(")", "").trim();
                         mp.put(currKg+"",currPrice );
+                        //1~10까지 값을 넣어줌
+                        if(i==0){//처음 한번만 넣어줌.
+                            for (int k=1; k < 10 ; k++){
+                                mp.put(k+"",currPrice );
+                            }
+                        }
+
                     }else{//파운드 무게표
+                       // System.out.println("iiiiiiiiii--->"+i);
                         currPound = ( new BigDecimal(values.toArray()[0].toString()))
                                 .setScale(0, BigDecimal.ROUND_FLOOR)
                                 .intValue();
@@ -346,8 +356,9 @@ public class ResultFragment extends Fragment {
                             mp.put(j+"",currPrice );
                         }
                         beforePound =Integer.parseInt( values.toArray()[0].toString());
+
                     }
-                    System.out.println(jObj.values());
+                  //  System.out.println("***&%$^#%^#$^$%^$^$&$%&$%&%$&%$&%$");
                 }else{
                     currPound = ( new BigDecimal(values.toArray()[0].toString()))
                             .setScale(0, BigDecimal.ROUND_FLOOR)
@@ -355,10 +366,10 @@ public class ResultFragment extends Fragment {
 
                     currPrice = values.toArray()[1].toString().replace("$", "").replace(")", "").trim();
                     mp.put(currPound+"",currPrice );
-                    System.out.println(jObj.values());
+                    //System.out.println(jObj.values());
 
                 }
-            }
+            }//end for
         }catch (Exception e){
 
         }
@@ -389,7 +400,7 @@ public class ResultFragment extends Fragment {
             ////////////////////////////json파일에서 무게별 금액정보 얻어롬 /////////////////////////////
             Map<String, String> infoMap = getMapWeightPrice(beadeaji, shppingCenter, shipGubun, national, false);
             ///////////////////////////////////////////////////////////////////////////////////////
-
+           // System.out.print("infoMap 처음 -->"+infoMap);
             String note="";  //노트
            // System.out.println("width=>" + goodWidth);
            // System.out.println("width=>" + goodWidth + "  height==>" + goodHeight + "  vertical==>" + goodVertical);
@@ -426,6 +437,7 @@ public class ResultFragment extends Fragment {
                         if(volumeWeight.compareTo(finalWeight) > 0 ){
                             finalWeight = volumeWeight;
                             infoMap = getMapWeightPrice(beadeaji, shppingCenter, shipGubun, national, true);
+                            //System.out.print("infoMap V:true -->"+infoMap);
                             maxLbs=99;
                         }
                     } else {
@@ -603,20 +615,24 @@ public class ResultFragment extends Fragment {
                 System.out.println("부피무게---->" + volumeWeight);
             }
             // System.out.println("lbsJson--"+lbsJson);
-
+            System.out.println("입력받은 무게==>"+weight);
+            System.out.print(shppingCenter);
+            System.out.println("계산된 무게==>"+finalWeight);
             //배대지별 배송요율표 max설정
             BigDecimal shipPrice = null;
+            if(beadeaji.equals("yogirloo")){
+                System.out.print("infoMap===>"+infoMap);
+            }
 
             if(finalWeight.intValue() <= maxLbs ){
+                //System.out.print(infoMap);
                     shipPrice = new BigDecimal(infoMap.get(finalWeight.toString()).toString());  //파운드별 배송비
             }else{
                 shipPrice = BigDecimal.ZERO;
             }
 
             System.out.println("배송비 ==>"+shipPrice);
-            System.out.println("입력받은 무게==>"+weight);
-            System.out.print(shppingCenter);
-            System.out.println("계산된 무게==>"+finalWeight);
+
 
             if(beadeaji.equals("malltail")){
                 vo.setAgent("몰테일");
